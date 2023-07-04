@@ -36,8 +36,34 @@ class _QuizPageState extends State<QuizPage> {
 
   ];
 
+  void checkAnswer(bool usersAnswer){
+    bool correctAnswer = quizBrain.getQuestionAnswer();
 
 
+    setState(() {
+
+      if (usersAnswer == correctAnswer){
+      scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+      );
+
+    }
+    else{
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
+
+        quizBrain.nextQuestion();
+      });
+
+  }
 
 
   @override
@@ -87,21 +113,9 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-
-                bool correctAnswer = quizBrain.getQuestionAnswer();
-
-                if (correctAnswer == true){
-                  print("users got it right");
-
-                }
-                else{
-                  print('users got it wrong');
+                checkAnswer(true);
                 }
 
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
-              },
             ),
           ),
         ),
@@ -125,7 +139,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-
+                checkAnswer(false);
 
               },
             ),
