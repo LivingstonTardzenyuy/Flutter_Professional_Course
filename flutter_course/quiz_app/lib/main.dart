@@ -37,44 +37,56 @@ class _QuizPageState extends State<QuizPage> {
 
   ];
 
+  int finalScore = 0;
+
+
   void checkAnswer(bool usersAnswer){
     bool correctAnswer = quizBrain.getQuestionAnswer();
 
     setState(() {
       if(quizBrain.isFinished() == true){
+        quizBrain.reset();
         Alert(
           context: context,
           title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
+          desc: 'You\'ve reached the end of the quiz. your score was $finalScore',
         ).show();
 
-        quizBrain.rest();
 
         scoreKeeper = [];
+
+      }
+
+      else {
+
+
+        if (usersAnswer == correctAnswer) {
+          finalScore ++;
+          print(' you final score is $finalScore');
+          scoreKeeper.add(
+            Icon(
+              Icons.check,
+              color: Colors.green,
+
+            ),
+
+          );
+        }
+        else {
+          scoreKeeper.add(
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+
+        quizBrain.nextQuestion();
       }
 
 
-      if (usersAnswer == correctAnswer){
-      scoreKeeper.add(
-          Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-      );
 
-    }
-    else{
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
-
-
-        quizBrain.nextQuestion();
-      });
+    });
 
   }
 
