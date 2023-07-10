@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'input_page.dart';
+import 'constants.dart';
 
-const labelTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF808E98),
-);
 
 const sizeIcon = 80.0;
 
@@ -30,7 +27,7 @@ class ReusableStyle extends StatelessWidget {
 
         Text(
           label,
-          style: labelTextStyle,
+          style: klabelTextStyle,
         )
 
       ],
