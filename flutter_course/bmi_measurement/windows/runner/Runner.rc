@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "bmi_measurement" "\0"
+            VALUE "FileDescription", "oop" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bmi_measurement" "\0"
+            VALUE "InternalName", "oop" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bmi_measurement.exe" "\0"
-            VALUE "ProductName", "bmi_measurement" "\0"
+            VALUE "OriginalFilename", "oop.exe" "\0"
+            VALUE "ProductName", "oop" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

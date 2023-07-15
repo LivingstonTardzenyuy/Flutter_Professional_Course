@@ -1,6 +1,6 @@
 {
-    "name": "bmi_measurement",
-    "short_name": "bmi_measurement",
+    "name": "oop",
+    "short_name": "oop",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

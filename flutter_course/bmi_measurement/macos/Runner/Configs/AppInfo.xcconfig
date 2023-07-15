@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = bmi_measurement
+PRODUCT_NAME = oop
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.bmiMeasurement
+PRODUCT_BUNDLE_IDENTIFIER = com.example.oop
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
