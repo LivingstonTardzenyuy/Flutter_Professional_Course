@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'package:climate/services/weather.dart';
 class LocationLatitudeLongitude{
   late double latitude;
   late double longitude;
@@ -20,3 +20,8 @@ class LocationLatitudeLongitude{
       }
     }
   }
+
+
+// double temperature = decodedData['main']['temp'];
+// int condition = decodedData['weather'][0]['id'];
+// String cityName = decodedData['name'];
