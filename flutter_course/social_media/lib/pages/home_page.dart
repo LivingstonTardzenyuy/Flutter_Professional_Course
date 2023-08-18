@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/componenets/post_items.dart';
 import 'package:social_media/constants.dart';
 import 'package:social_media/styles/app_colors.dart';
 import 'package:social_media/styles/styleInput.dart';
+import 'package:social_media/styles/app_text.dart';
 class HomePage extends StatelessWidget {
+  List<String> users = [];
 
   @override
   Widget build(BuildContext context) {
+    mockUsersFromServer();
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
@@ -19,35 +23,27 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColors.backgroundColor,
           foregroundColor: Colors.white,
         ),
-        body: ListView(
-          children: mockUsersFromServer(),
-        )
+        body: ListView.separated(
+          itemBuilder: (context, index){
+          return PostItem(user: users[index]);
+        },
+        itemCount: users.length,
+          separatorBuilder: (BuildContext context, int index){
+            return SizedBox(
+              height: 24.0,
+            );
+            },
+        ),
       ),
     );
   }
 
-  _userItem() {
-    return Row(
-      children: <Widget>[
-        Image.asset(
-          'assets/temp/na.jpg',
-          width: 40,
-          height: 40,
-        ),
-        Text(
-            'Kongnyuy Livingston')
 
-      ],
-    );
-  }
-
-  List<Widget> mockUsersFromServer(){
-    List<Widget> users = [];
-    for (var i = 0; i< 2995; i++){
-      users.add(_userItem());
+  mockUsersFromServer(){
+    for (var i = 0; i< 100; i++){
+      users.add('User number $i');
 
     }
-    return users;
   }
 }
 
