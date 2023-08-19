@@ -14,10 +14,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Botton Navigation Container'),
-          backgroundColor: Colors.blue,
-      ),
       body: pages[currentIndex],    //to allow me to navigate b/t d/f features and see theme
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.amber,

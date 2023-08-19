@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../styles/app_text.dart';
 class ProfilePage extends StatelessWidget {
 
   @override
@@ -7,22 +9,56 @@ class ProfilePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
          children: <Widget>[
-             Center(
-               child: Padding(
-                 padding:EdgeInsets.only(top: 14),
-                 child: Container(
-                   width: 90,
-                   height: 90,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(20.0)
-                   ),
-                   child: Image.asset(
-                       'assets/temp/na.jpg',
-
-                   ),
-                 ),
-               ),
+             Image.asset(
+                 'assets/temp/na.jpg',
+               height: 90,
+               width: 90,
              ),
+          SizedBox(height: 24,),
+           Text(
+               'Kongnyuy Livingston',
+             style: AppText.header2,
+           ),
+           SizedBox(height: 6),
+
+           SizedBox(width: 8),
+           Text(
+             'Cameroon',
+             style: AppText.subtitle3,
+           ),
+
+           SizedBox(height: 24,),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceAround,
+             children: <Widget>[
+               Column(
+                 children: <Widget>[
+                   Text('200', style: AppText.header2,),
+                   Text('Followers'),
+                 ],
+               ),
+
+               Column(
+                 children: <Widget>[
+                   Text('200', style: AppText.header2,),
+                   Text('Posts'),
+                 ],
+               ),
+
+
+               Column(
+                 children: <Widget>[
+                   Text('800', style: AppText.header2,),
+                   Text('Following'),
+                 ],
+               ),
+
+             ],
+           ),
+
+           Divider(thickness: 2, height: 30,),
+          Text('dfkj')
+
 
          ],
       ),
