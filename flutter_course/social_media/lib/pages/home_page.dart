@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/componenets/app_bar.dart';
 import 'package:social_media/componenets/post_items.dart';
 import 'package:social_media/constants.dart';
 import 'package:social_media/styles/app_colors.dart';
 import 'package:social_media/styles/styleInput.dart';
 import 'package:social_media/styles/app_text.dart';
+
+import '../config/app_strings.dart';
 class HomePage extends StatelessWidget {
   List<String> users = [];
 
@@ -12,17 +15,12 @@ class HomePage extends StatelessWidget {
     mockUsersFromServer();
     return Scaffold(
       body: Scaffold(
-        appBar: AppBar(
-          title: Text(
-              'Your Dashboard',
-            style: kHomePageTitle,
+        appBar: AppBarFile(title: AppStrings.appName, actions: [
+          IconButton(
+            onPressed: () {},
+              icon:Icon(Icons.location_on),
           ),
-          actions: [
-            Icon(Icons.location_on_outlined),
-          ],
-          backgroundColor: AppColors.backgroundColor,
-          foregroundColor: Colors.white,
-        ),
+        ],),
         body: ListView.separated(
           itemBuilder: (context, index){
           return PostItem(user: users[index]);

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../config/appIconsAndImages.dart';
+import '../config/app_routes.dart';
+import '../config/app_strings.dart';
 import '../constants.dart';
 import 'package:social_media/pages/home_page.dart';
 
@@ -19,14 +22,14 @@ class LoginPage extends StatelessWidget {
                 // SizedBox(height: 10),
                 SizedBox(height: 10.0),
                 Text(
-                  "Login to Continue",
+                  AppStrings.loginToContinue,
                   style: kLoginToC,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30.0),
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Username',
+                    hintText: AppStrings.username,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
@@ -37,7 +40,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 20.0),
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: AppStrings.password,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
@@ -55,13 +58,13 @@ class LoginPage extends StatelessWidget {
                     style: TextButton.styleFrom(
                       primary: Colors.white,
                     ),
-                    child: Text('Forgot Password?'),
+                    child: Text(AppStrings.forgotPassword),
                   ),
                 ),
                 SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/main');
+                    Navigator.pushReplacementNamed(context, AppRoutes.main);
 
                   },
                   style: ElevatedButton.styleFrom(
@@ -71,11 +74,11 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text("Log in"),
+                  child: Text(AppStrings.loginToContinue),
                 ),
                 SizedBox(height: 15.0),
                 Text(
-                  'Or sign in with',
+                  AppStrings.orSignInWith,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -87,20 +90,20 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     TextButton(
                       onPressed: () {
-                        print('Login with Facebook');
+                        print(AppStrings.loginWithFacebook);
                       },
                       child: Image.asset(
-                        'assets/image/fa.png',
+                        AppImages.facebook,
                         scale: 7,
                       ),
                     ),
                     SizedBox(width: 25),
                     TextButton(
                       onPressed: () {
-                        print('Login with Google');
+                        print(AppStrings.loginWithGoogle);
                       },
                       child: Image.asset(
-                        'assets/image/google.jpeg',
+                        AppImages.google,
                         scale: 5,
                       ),
                     ),
@@ -111,7 +114,7 @@ class LoginPage extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Don't have an account? ",
+                      AppStrings.dontHaveAnAccount,
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -119,7 +122,7 @@ class LoginPage extends StatelessWidget {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        'Sign up',
+                        AppStrings.signUp,
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                         ),

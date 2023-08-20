@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_media/pages/home_page.dart';
 import 'package:social_media/pages/profile_Page.dart';
 
+import '../config/appIconsAndImages.dart';
+import '../config/app_strings.dart';
+
 class MainPage extends StatefulWidget {
 
   @override
@@ -19,11 +22,11 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.amber,
         type: BottomNavigationBarType.fixed,
         items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'favorite'),
-        BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Message'),
-        BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Add Post'),
-        BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profile'),
+        BottomNavigationBarItem(icon: AppIcons.home, label: AppStrings.home),
+        BottomNavigationBarItem(icon: AppIcons.favorite, label: AppStrings.favourite),
+        BottomNavigationBarItem(icon: AppIcons.message, label: AppStrings.message),
+        BottomNavigationBarItem(icon: AppIcons.message, label: AppStrings.add),
+        BottomNavigationBarItem(icon: AppIcons.account_cirlce, label: AppStrings.profile),
 
         ],
 

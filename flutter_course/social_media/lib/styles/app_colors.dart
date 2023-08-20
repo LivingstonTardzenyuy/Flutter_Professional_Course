@@ -9,6 +9,7 @@ class AppColors{
   static const backgroundColor = Color(0xFF1A2947);
   static const black = Color(0xFF000000);
   static const white = Color(0xFFFFFF);
+  static const fieldColor = Color(0xFFD9D9D9);
 
 
 }
