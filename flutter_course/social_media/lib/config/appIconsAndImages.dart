@@ -12,6 +12,11 @@ class AppIcons{
   static const favorite = Icon(Icons.favorite);
   static const message = Icon(Icons.message);
   static const account_cirlce = Icon(Icons.account_circle);
+  static const add = Icon(
+      Icons.add,
+    color: Colors.black,
+  );
+  static const profile = Icon(Icons.person);
 
 
 }
