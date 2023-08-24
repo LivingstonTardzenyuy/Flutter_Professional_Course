@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      // extendBody: true,
       body: pages[currentIndex.index],
       bottomNavigationBar: MyButtonNavigation(
         currentIndex: currentIndex.index,
@@ -71,12 +71,16 @@ class MyButtonNavigation extends StatelessWidget {
                     child: IconButton(
                       onPressed: () => onTap(Menus.home),
                       icon: AppIcons.home,
+                      color: currentIndex == Menus.home ? Colors.blue : null
+
                     ),
                   ),
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.favorite),
                       icon: AppIcons.favorite,
+                        color: currentIndex == Menus.favorite ? Colors.blue : null
+
                     ),
                   ),
                   Expanded(child: Container(),),
@@ -85,12 +89,16 @@ class MyButtonNavigation extends StatelessWidget {
                     child: IconButton(
                       onPressed: () => onTap(Menus.message),
                       icon: AppIcons.message,
+                        color: currentIndex == Menus.message ? Colors.blue : null
+
                     ),
                   ),
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.user),
                       icon: AppIcons.profile,
+                        color: currentIndex == Menus.user ? Colors.blue : null
+
                     ),
                   ),
                 ],
