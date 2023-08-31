@@ -18,5 +18,7 @@ class AppIcons{
   );
   static const profile = Icon(Icons.person);
 
+  static const location = Icon(Icons.location_on);
+
 
 }

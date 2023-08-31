@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_media/pages/home_page.dart';
@@ -9,51 +8,50 @@ import '../config/app_strings.dart';
 import '../styles/app_colors.dart';
 
 class MainPage extends StatefulWidget {
-
-  Menus currentIndex = Menus.home;
-  late ValueChanged<int> onTap;
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[currentIndex.index],    //to allow me to navigate b/t d/f features and see theme
-      bottomNavigationBar: MyButtonNavigation(currentIndex: currentIndex.index,
-          onTap: (value){
-        setState(() {
-          currentIndex = value;
-        });
-      }),
-    );
-  }
+  Menus currentIndex = Menus.home;
 
   final pages = [
     HomePage(),
     Center(child: Text('favorite')),
     Center(child: Text('add post'),),
     Center(child: Text('messages'),),
-
     ProfilePage(),
   ];
-}
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // extendBody: true,
+      body: pages[currentIndex.index],
+      bottomNavigationBar: MyButtonNavigation(
+        currentIndex: currentIndex.index,
+        onTap: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
+      ),
+    );
+  }
+}
 
 enum Menus{
   home, favorite, add, message, user
 }
-class MyButtonNavigation extends StatelessWidget {
 
-  MyButtonNavigation(this.currentIndex, this.onTap);
-  late int currentIndex;
-  late ValueChanged<Menus> onTap;
+class MyButtonNavigation extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<Menus> onTap;
+
+  MyButtonNavigation({required this.currentIndex, required this.onTap});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       height: 87,
       margin: EdgeInsets.all(24),
@@ -67,44 +65,46 @@ class MyButtonNavigation extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
-
-
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.home),
                       icon: AppIcons.home,
+                      color: currentIndex == Menus.home ? Colors.blue : null
+
                     ),
                   ),
-
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.favorite),
                       icon: AppIcons.favorite,
+                        color: currentIndex == Menus.favorite ? Colors.blue : null
+
                     ),
                   ),
                   Expanded(child: Container(),),
-
                   Spacer(),
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.message),
                       icon: AppIcons.message,
+                        color: currentIndex == Menus.message ? Colors.blue : null
+
                     ),
                   ),
-
                   Expanded(
                     child: IconButton(
                       onPressed: () => onTap(Menus.user),
                       icon: AppIcons.profile,
+                        color: currentIndex == Menus.user ? Colors.blue : null
+
                     ),
                   ),
                 ],
               ),
             ),
           ),
-
           Positioned(
             left: 0, right: 0, top: 0,
             child: GestureDetector(
@@ -117,7 +117,6 @@ class MyButtonNavigation extends StatelessWidget {
                   color: AppColors.primary,
                   shape: BoxShape.circle,
                 ),
-
                 child: AppIcons.add,
               ),
             ),
