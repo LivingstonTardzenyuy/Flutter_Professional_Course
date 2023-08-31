@@ -6,7 +6,7 @@ class UserVariables{
   static const enterEmail = 'Enter your email';
   static const password = 'Enter password.';
   static const login = 'Log In';
-  static const register = 'Register';
+  static const register = 'Register to the apppp         ';
   static const flashChat = 'Chat App';
   static const value = 'Enter a value';
 
