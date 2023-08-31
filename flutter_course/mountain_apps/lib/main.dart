@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mountain_apps/pages/navPages/main_page.dart';
 import 'package:mountain_apps/pages/welcome_page.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-        home: WelcomePage(),
+        home: MainPage(),
     );
   }
 }
