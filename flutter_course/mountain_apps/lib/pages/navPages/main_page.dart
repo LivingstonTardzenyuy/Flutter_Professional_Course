@@ -3,7 +3,7 @@ import 'package:mountain_apps/pages/navPages/search_page.dart';
 
 import '../../appResources/strings.dart';
 import 'bar_item_page.dart';
-import 'home_page.dart';
+import '../home_page.dart';
 import 'my_page.dart';
 
 
