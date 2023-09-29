@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../appResources/appcolors.dart';
 import '../appResources/strings.dart';
+import '../cubic/app_cubic.dart';
 import '../widgets/app_large_text.dart';
 import '../widgets/responsiveButton.dart';
 
@@ -46,7 +48,6 @@ class _WelcomePageState extends State<WelcomePage> {
                   Column(
                     children: <Widget>[
                       Container(
-                        // margin: EdgeInsets.only(left: 0.0),
                           child: AppLargeText(text: AppStrings.discover, colour: Colors.black, size: 30, isBold: true,),
                       ),
 
@@ -58,7 +59,15 @@ class _WelcomePageState extends State<WelcomePage> {
 
                       SizedBox(height: 40,),
 
-                      ResponsiveButton(width: 120, text: AppStrings.proceed,),
+                      GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<AppCubits>(context).getData();
+                        },
+                        child: Container(
+                          width: 200,
+                            child: Row(children:[
+                            ResponsiveButton(width: 120, text: AppStrings.proceed,)])),
+                      ),
                     ],
                   ),
 

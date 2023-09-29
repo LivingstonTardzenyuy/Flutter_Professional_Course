@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(15),
                         color: Colors.white,
                         image: DecorationImage(
-                            image: AssetImage('images/mountains/mount1.jpg'),
+                            image: AssetImage('images/mountains/mount3.jpg'),
                             fit: BoxFit.cover
                         ),
                       ),
