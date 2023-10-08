@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'explicit_animations/listAnimation.dart';
 import 'explicit_animations/login_animations.dart';
 import 'implicit_examples/animated_color_pallete.dart';
 import 'implicit_examples/animated_shopping_cart_button.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginScreen(),
+      home: ListAnimation(),
     );
   }
 }
