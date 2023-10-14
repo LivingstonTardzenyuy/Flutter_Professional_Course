@@ -35,7 +35,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
           ),
 
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
                   onPressed: () {
