@@ -1,53 +1,57 @@
 import 'package:flutter/material.dart';
 
-class AnimatedShoppingCartButton extends StatefulWidget {
-
-
-  const AnimatedShoppingCartButton({super.key});
-
+class AnimatedShoppingCart extends StatefulWidget {
   @override
-  State<AnimatedShoppingCartButton> createState() => _AnimatedShoppingCartButtonState();
+  State<AnimatedShoppingCart> createState() => _AnimatedShoppingCartState();
 }
 
-class _AnimatedShoppingCartButtonState extends State<AnimatedShoppingCartButton> {
+class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
+  // const AnimatedShoppingCart({super.key});
+  bool isTouched = false;
 
-  bool isExpanded = false;
 
   @override
+
+
+  // void setState(VoidCallback fn) {
+  //   // TODO: implement setState
+  //   super.setState(fn);
+  //   isTouched = !isTouched;
+  // }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Cart'),
+        title: Text('Shopping Cart'),
       ),
 
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            isExpanded = !isExpanded;
-
-          });
-        },
-        child: Center(
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 1000),
-              width: isExpanded ? 200 : 70,
-              height: 60,
-            decoration: BoxDecoration(
-              color: isExpanded ? Colors.green : Colors.blue,
-              borderRadius: BorderRadius.circular(isExpanded ? 15 : 10)
-            ),
-
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(isExpanded ? Icons.check : Icons.shopping_cart),
-                Text( isExpanded ? 'the button has expanded' : '')
-              ],
-            )
-            )
+      body: Center(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 1000),
+          width: isTouched ? 230 : 60,
+          height: 60,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(isTouched ? 40 : 10),
+            color: isTouched ? Colors.green : Colors.blue,
           ),
 
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isTouched = !isTouched;
+                    });
+                  },
+                  icon: Icon(isTouched ? Icons.airplane_ticket :Icons.shopping_cart,color: Colors.white,),
+      ),
+
+              Text(isTouched ? 'added to Cart' : ''),
+
+            ],
+          ),
         ),
+      ),
     );
   }
 }

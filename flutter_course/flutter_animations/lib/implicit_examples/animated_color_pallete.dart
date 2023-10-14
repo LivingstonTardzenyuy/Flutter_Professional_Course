@@ -32,6 +32,9 @@ class _AnimatedColorPaletteState extends State<AnimatedColorPalette> {
       currentPalette = generateRandomPalette();
     });
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +50,7 @@ class _AnimatedColorPaletteState extends State<AnimatedColorPalette> {
             for (Color color in currentPalette)
                 AnimatedContainer(
                   duration: Duration(milliseconds: 1000),
-
+                  curve: Curves.bounceIn,
                   width: 100,
                   height: 90,
                   color: color,
