@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class RadialProgressAnimation extends StatefulWidget {
 
+class RadialProgressAnimation extends StatefulWidget {
   final double progress;
   final Color color;
 
   const RadialProgressAnimation({
-    super.key,
     required this.progress,
     required this.color
   });
@@ -15,18 +14,18 @@ class RadialProgressAnimation extends StatefulWidget {
   State<RadialProgressAnimation> createState() => _RadialProgressAnimationState();
 }
 
-class _RadialProgressAnimationState extends State<RadialProgressAnimation> with SingleTickerProviderStateMixin {
+class _RadialProgressAnimationState extends State<RadialProgressAnimation> with SingleTickerProviderStateMixin{
 
   late AnimationController controller;
   late Animation<double> animation;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+    controller = AnimationController(vsync: this, duration: const Duration(seconds: 3));
     animation = Tween<double>(begin: 0, end: widget.progress).animate(controller);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,22 +37,25 @@ class _RadialProgressAnimationState extends State<RadialProgressAnimation> with 
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: 150,
                   width: 150,
+                  height: 150,
 
                   child: CircularProgressIndicator(
                     value: animation.value,
                     strokeWidth: 10,
                     backgroundColor: Colors.grey.shade100,
                     color: widget.color,
+
                   ),
                 ),
+
                 Text(
                   '${(animation.value * 100).toInt()}%',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 27,
-                ),)
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600
+                  ),
+                )
               ],
             );
           }
@@ -62,10 +64,14 @@ class _RadialProgressAnimationState extends State<RadialProgressAnimation> with 
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-            controller.forward();
+            if (controller.isCompleted){
+              controller.reverse();
+            }
+            else{
+              controller.forward();
+            }
+          // controller.forward();
         },
-
-        child: Icon(Icons.forward),
       ),
     );
   }
