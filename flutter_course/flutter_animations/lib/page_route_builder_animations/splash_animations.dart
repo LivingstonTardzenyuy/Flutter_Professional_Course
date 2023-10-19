@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 
 class SplashAnimation extends StatefulWidget {
   const SplashAnimation({super.key});
@@ -15,56 +18,64 @@ class _SplashAnimationState extends State<SplashAnimation> with SingleTickerProv
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = AnimationController(vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
+    controller = AnimationController(vsync: this, duration:const Duration(milliseconds: 500));
 
 
     controller.addListener(() {
-      if (controller.isCompleted) {
+      if(controller.isCompleted){
         Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return const Destination();
-            },
-          ),
+          PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+            return const Destination();
+          },
+
+            transitionsBuilder: (context, animation, secondaryAnimation, child){
+            // return FadeTransition(opacity: animation, child: child,);
+              final tween = Tween(begin: Offset(0, -1), end: Offset.zero).animate(animation);
+              return SlideTransition(
+                  position: tween,
+                  child: child,
+              );
+            }
+          )
         );
+
+
+
+        Timer(const Duration(milliseconds: 500), () {
+          controller.reset();
+        });
       }
+
+
     });
 
-    controller.reset();
-
-
     scaleAnimation = Tween<double>(begin: 1, end: 10).animate(controller);
-
+    // slideAnimation = Tween<double>(begin: )
   }
-
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-              shape: BoxShape.circle,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                controller.forward();
-              },
+        child: GestureDetector(
+          onTap: () {
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //       builder: (context) => const Destination())
+            // );
+            controller.forward();
+          },
+            child: ScaleTransition(
+              scale: scaleAnimation,
               child: Container(
+                width: 100,
+                height: 100,
+
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.blue
                 ),
               ),
             ),
-          ),
         ),
       ),
     );
@@ -72,9 +83,14 @@ class _SplashAnimationState extends State<SplashAnimation> with SingleTickerProv
 }
 
 
-class Destination extends StatelessWidget {
+class Destination extends StatefulWidget {
   const Destination({super.key});
 
+  @override
+  State<Destination> createState() => _DestinationState();
+}
+
+class _DestinationState extends State<Destination> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +98,10 @@ class Destination extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Go Back'),
       ),
+
+      body: Center(
+        child: Text('Hello world'),
+      ),
     );
   }
 }
-
