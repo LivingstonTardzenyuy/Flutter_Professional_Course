@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 
-class TaskScreen extends StatelessWidget {
+import '../widgets/task_screen.dart';
+import '../widgets/tasks_list.dart';
+import '../widgets/tasktile.dart';
+
+class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
 
   @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  @override
+
   Widget build(BuildContext context) {
+
+
+
+    bool isChecked = false;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
         shape: CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(context: context, builder: (context) => AddTaskScreen());
+        },
         child: Icon(Icons.add,),
       ),
 
@@ -48,6 +64,7 @@ class TaskScreen extends StatelessWidget {
 
           Expanded(
             child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -56,13 +73,7 @@ class TaskScreen extends StatelessWidget {
                       topLeft: Radius.circular(20))
 
               ),
-              child: ListView(
-                children: [
-                  ListTile(
-                    title: Text('Thi'),
-                  )
-                ],
-              )
+              child: TaskList(),
             ),
           ),
         ],
