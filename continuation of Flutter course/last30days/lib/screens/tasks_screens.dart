@@ -39,7 +39,7 @@ class _TaskScreenState extends State<TaskScreen> {
               children: <Widget>[
                 CircleAvatar(
                     radius: 30,
-                    backgroundColor: Colors.white,
+                      backgroundColor: Colors.white,
                     child: Icon(Icons.list, color: Colors.lightBlueAccent, size: 30.0,)),
 
                 const SizedBox(height: 20,),
