@@ -10,7 +10,7 @@ class TaksCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Checkbox(
       // activeColor: Colors.lightBlueAccent,
-      value: false,
+      value: isChecked,
       onChanged: checkboxCallback,
     );
   }
