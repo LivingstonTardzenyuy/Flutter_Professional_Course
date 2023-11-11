@@ -15,7 +15,7 @@ class _BouncingBallAnimationState extends State<BouncingBallAnimation> with Sing
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
     animation = Tween<double>(begin: 0, end: 1).animate(controller);
 
     controller.addStatusListener((status) {
@@ -40,7 +40,7 @@ class _BouncingBallAnimationState extends State<BouncingBallAnimation> with Sing
             AnimatedBuilder(
               animation: animation,
               builder: (context, child) => CustomPaint(
-                size: const Size(200, 200),
+                size: const Size(200, 500),
                 painter: BouncingBallPainter(animation.value),
               ),
             )
@@ -62,7 +62,7 @@ class BouncingBallPainter extends CustomPainter{
   void paint(Canvas canvas, Size size) {
       canvas.drawCircle(Offset(
           size.width/2, size.height - (size.height * animationValue)),
-          20,
+          70,
           Paint()..color= Colors.blue);
   }
 
