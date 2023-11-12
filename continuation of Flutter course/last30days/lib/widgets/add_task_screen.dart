@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 class AddTaskScreen extends StatelessWidget {
 
   final Function addTaskCallBack;
@@ -50,3 +50,16 @@ class AddTaskScreen extends StatelessWidget {
     );
   }
 }
+
+
+class Data extends ChangeNotifier {
+  String data = '';
+
+  void changeString(String newString){
+    data = newString;
+
+    notifyListeners();
+  }
+}
+
+
