@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/task.dart';
+import '../models/tasks_data.dart';
 class AddTaskScreen extends StatelessWidget {
 
-  final Function addTaskCallBack;
-  AddTaskScreen(@required this.addTaskCallBack);
   @override
   Widget build(BuildContext context) {
 
@@ -39,7 +40,8 @@ class AddTaskScreen extends StatelessWidget {
               color: Colors.blue,
               child: TextButton(
                 onPressed: () {
-                  addTaskCallBack(newTaskTitle);
+                  Provider.of<TaskData>(context, listen: false).addTask(newTaskTitle);
+                  Navigator.pop(context);         // allow me to pop up the mdo
                 },
                 child: Text('Add', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),),
               ),
@@ -52,14 +54,6 @@ class AddTaskScreen extends StatelessWidget {
 }
 
 
-class Data extends ChangeNotifier {
-  String data = '';
 
-  void changeString(String newString){
-    data = newString;
-
-    notifyListeners();
-  }
-}
 
 
