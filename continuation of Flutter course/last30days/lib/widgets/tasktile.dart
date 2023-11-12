@@ -20,7 +20,7 @@ class _TaskTileState extends State<TaskTile> {
     return ListTile(
       title: Text(
         widget.title,
-        style: TextStyle(decoration: widget.isChecked ? TextDecoration.lineThrough : null),
+        style: TextStyle( fontSize: 17, decoration: widget.isChecked ? TextDecoration.lineThrough : null, color: widget.isChecked ? Colors.black : Colors.purpleAccent),
       ),
 
         trailing: Checkbox(

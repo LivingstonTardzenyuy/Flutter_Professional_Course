@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/task_screen.dart';
+import '../models/task.dart';
+import '../widgets/add_task_screen.dart';
 import '../widgets/tasks_list.dart';
 import '../widgets/tasktile.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
 
+
   @override
   State<TaskScreen> createState() => _TaskScreenState();
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+
+  List<Task> tasks = [];
+
   @override
 
   Widget build(BuildContext context) {
@@ -24,7 +29,13 @@ class _TaskScreenState extends State<TaskScreen> {
         backgroundColor: Colors.lightBlueAccent,
         shape: CircleBorder(),
         onPressed: () {
-          showModalBottomSheet(context: context, builder: (context) => AddTaskScreen());
+          showModalBottomSheet(context: context, builder: (context) =>
+              AddTaskScreen((newTaskTitle){
+                setState(() {
+                  tasks.add(Task(name: newTaskTitle));
+                });
+                Navigator.pop(context);
+          },));
         },
         child: Icon(Icons.add,),
       ),
@@ -37,25 +48,31 @@ class _TaskScreenState extends State<TaskScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                CircleAvatar(
-                    radius: 30,
-                      backgroundColor: Colors.white,
-                    child: Icon(Icons.list, color: Colors.lightBlueAccent, size: 30.0,)),
-
-                const SizedBox(height: 20,),
-                Text('Todo', style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 50.0,
-                  fontWeight: FontWeight.w700,
-                ),),
-
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('12', style: TextStyle(color: Colors.white, fontSize: 20),),
-                    const SizedBox(width: 12,),
-                    Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 20),)
+                    CircleAvatar(
+                        radius: 30,
+                          backgroundColor: Colors.white,
+                        child: Icon(Icons.list, color: Colors.lightBlueAccent, size: 30.0,)),
+
+                    Text('Todo App', style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 50.0,
+                      fontWeight: FontWeight.w700,
+                    ),),
                   ],
                 ),
+
+                const SizedBox(height: 20,),
+                Row(
+                  children: [
+                    Text('${tasks.length}', style: TextStyle(color: Colors.black, fontSize: 20),),
+                    SizedBox(width: 10,),
+                    Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 20),),
+                  ],
+                ),
+                const SizedBox(width: 12,),
 
 
               ],
@@ -73,7 +90,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       topLeft: Radius.circular(20))
 
               ),
-              child: TaskList(),
+              child: TaskList(tasks: tasks,),
             ),
           ),
         ],
