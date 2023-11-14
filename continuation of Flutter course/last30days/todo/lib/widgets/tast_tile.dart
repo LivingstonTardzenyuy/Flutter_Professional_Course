@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../models/task_data.dart';
+import 'package:provider/provider.dart';
+
 class TaskTile extends StatelessWidget {
   final bool isChecked;
   final String taskTitle;
@@ -12,8 +15,13 @@ class TaskTile extends StatelessWidget {
       trailing:Checkbox(
         activeColor: Colors.lightBlueAccent,
         value: isChecked,
-        onChanged: checkBoxCallBack,
+        onChanged: (checkBoxCallBack){
+
+        },
       ),
+      // onLongPress: (task){
+      //   Provider.of<TaskData>(context).DeleteTask(task);
+      // },
     );
   }
 }
