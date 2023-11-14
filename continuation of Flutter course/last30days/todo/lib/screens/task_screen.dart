@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import '../models/tasks.dart';
 import '../widgets/tasts_list.dart';
 import 'add_tasks_screen.dart';
+import 'package:intl/intl.dart';
 
+String getCurrentDate() {
+  DateTime datetime = DateTime.now();
+  var formatter = DateFormat('yyyy-MM-dd');
+  return formatter.format(datetime);
+}
 class TasksScreen extends StatefulWidget {
 
   @override
@@ -26,7 +32,11 @@ class _TasksScreenState extends State<TasksScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
         shape: CircleBorder(),
-        onPressed: () => showModalBottomSheet(context: context, builder: (context) => AddTaskScreen()),
+        onPressed: () => showModalBottomSheet(context: context, builder: (context) => AddTaskScreen((newTaskTitle){
+          setState(() {
+            task.add(Task(name: newTaskTitle));
+          });
+        })),
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -37,16 +47,27 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.list, color: Colors.lightBlueAccent,),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.list, color: Colors.lightBlueAccent,),
+                    ),
+                    SizedBox(width: 140,),
+                    Text('Todo', style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700, color: Colors.white),),
+                  ],
                 ),
 
-                SizedBox(height: 10,),
-                Text('Todo', style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700, color: Colors.white),),
+                SizedBox(height: 20,),
 
-                Text('12 Tasks', style: TextStyle(color: Colors.white, fontSize: 18),),
+                Row(
+                  children: [
+                    Text('${task.length} Tasks', style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w800, fontSize: 22),),
+                    SizedBox(width: 120,),
+                    Text(getCurrentDate(), style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w800, fontSize: 22)),
+                  ],
+                ),
 
               ],
             ),
