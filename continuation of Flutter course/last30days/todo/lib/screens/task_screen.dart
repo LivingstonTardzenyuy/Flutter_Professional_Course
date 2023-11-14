@@ -37,7 +37,7 @@ class _TasksScreenState extends State<TasksScreen> {
             task.add(Task(name: newTaskTitle));
           });
         })),
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, color: Colors.blueAccent,),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
