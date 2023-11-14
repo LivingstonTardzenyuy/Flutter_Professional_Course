@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/task_data.dart';
-import '../models/tasks.dart';
 import '../widgets/tasts_list.dart';
 import 'add_tasks_screen.dart';
 import 'package:intl/intl.dart';
@@ -21,10 +20,11 @@ class TasksScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
         shape: CircleBorder(),
-        onPressed: () => showModalBottomSheet(context: context, builder: (context) => AddTaskScreen(
-            (newTasktitle){
-
-        })),
+        onPressed: () => showModalBottomSheet(
+            context: context,
+            builder: (context) => AddTaskScreen(),
+            // Navigator.pop(context),
+        ),
         child: Icon(Icons.add, color: Colors.blueAccent,),
       ),
       body: Column(
