@@ -10,4 +10,5 @@ class Task {
   void toggleIsDone(){
     isDone = !isDone;
   }
+
 }
