@@ -29,7 +29,11 @@ class MainPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blue,
-            title: Text(context.watch<AppData>().name),
+            title: Consumer<AppData>(
+                builder: (BuildContext context, value, Widget? child) {
+                  return Text(value.name);
+                },
+              ),
           ),
           body: Screen2(),
         );
@@ -66,7 +70,11 @@ class Screen4 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(context.watch<AppData>().name),
+          Consumer<AppData>(
+              builder: (context, value, child){
+                return Text(value.name);
+              },
+          ),
           SizedBox(height: 30,),
           TextButton(
 
