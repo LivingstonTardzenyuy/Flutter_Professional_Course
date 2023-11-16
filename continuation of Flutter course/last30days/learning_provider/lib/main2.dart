@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -18,47 +15,70 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  String data = 'John Rambo';
+
+  void changeValue(String dataChange){
+    setState(() {
+      data = dataChange;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     print('Building MainPage');
-    return ChangeNotifierProvider(
-      create: (context) => AppData(),
-      builder: (context, child){
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.blue,
-            title: Text(context.watch<AppData>().name),
-          ),
-          body: Screen2(),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(data),
+      ),
+      body: Screen2(data: data, changeData: changeValue,),
     );
   }
 }
 
 class Screen2 extends StatelessWidget {
+  const Screen2({Key? key, required this.data, required this.changeData}) : super(key: key);
+  final String data;
+  final Function (String) changeData;
   @override
   Widget build(BuildContext context) {
     print('Building Screen2');
     return Container(
-      child: Screen3(),
+      child: Screen3(data: data, changeData: changeData,),
     );
   }
 }
 
 class Screen3 extends StatelessWidget {
+  const Screen3({Key? key, required this.data, required this.changeData}) : super(key: key);
+  final String data;
+  final Function (String) changeData;
   @override
   Widget build(BuildContext context) {
     print('Building Screen3');
     return Container(
-      child: Screen4(),
+      child: Screen4(data: data, changeData: changeData,),
     );
   }
 }
 
-class Screen4 extends StatelessWidget {
+class Screen4 extends StatefulWidget {
+  const Screen4({Key? key, required this.data, required this.changeData}) : super(key: key);
+  final String data;
+  final Function (String) changeData;
+
+  @override
+  State<Screen4> createState() => _Screen4State();
+}
+
+class _Screen4State extends State<Screen4> {
   @override
   Widget build(BuildContext context) {
     print('Building Screen4');
@@ -66,12 +86,14 @@ class Screen4 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(context.watch<AppData>().name),
+          Text(widget.data),
           SizedBox(height: 30,),
           TextButton(
 
             onPressed: () {
-                context.read().changeData('I have change the State of this data');
+              setState(() {
+                widget.changeData('New Data change');
+              });
             },
             child: Container(
                 height: 40, width: 120,
@@ -89,14 +111,3 @@ class Screen4 extends StatelessWidget {
 
 
 
-class AppData with ChangeNotifier{
-  String _name = 'John Rambo';
-
-  void changeData(String data){
-    _name = data;
-
-    notifyListeners();
-  }
-
-  String get name => _name;
-}
