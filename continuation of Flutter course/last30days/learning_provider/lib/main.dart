@@ -71,7 +71,7 @@ class Screen4 extends StatelessWidget {
           TextButton(
 
             onPressed: () {
-                context.read().changeData('I have change the State of this data');
+                context.read<AppData>().changeData('I have change the State of this data');
             },
             child: Container(
                 height: 40, width: 120,
