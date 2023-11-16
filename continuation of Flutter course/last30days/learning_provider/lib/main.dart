@@ -17,42 +17,47 @@ class MyApp extends StatelessWidget {
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
+  final String data = 'John Rambo';
   @override
   Widget build(BuildContext context) {
     print('Building MainPage');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Data Here'),
+        backgroundColor: Colors.blue,
+        title: Text(data),
       ),
-      body: Screen2(),
+      body: Screen2(data: data,),
     );
   }
 }
 
 class Screen2 extends StatelessWidget {
-  const Screen2({Key? key}) : super(key: key);
+  const Screen2({Key? key, required this.data}) : super(key: key);
+  final String data;
   @override
   Widget build(BuildContext context) {
     print('Building Screen2');
     return Container(
-      child: Screen3(),
+      child: Screen3(data: data,),
     );
   }
 }
 
 class Screen3 extends StatelessWidget {
-  const Screen3({Key? key}) : super(key: key);
+  const Screen3({Key? key, required this.data}) : super(key: key);
+  final String data;
   @override
   Widget build(BuildContext context) {
     print('Building Screen3');
     return Container(
-      child: Screen4(),
+      child: Screen4(data: data,),
     );
   }
 }
 
 class Screen4 extends StatelessWidget {
-  const Screen4({Key? key}) : super(key: key);
+  const Screen4({Key? key, required this.data}) : super(key: key);
+  final String data;
   @override
   Widget build(BuildContext context) {
     print('Building Screen4');
@@ -60,10 +65,10 @@ class Screen4 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Data Here'),
+          Text(data),
           ElevatedButton(
             onPressed: () {},
-            child: Text('Change data'),
+            child: Text(data),
           ),
         ],
       ),
