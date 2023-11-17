@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "723846073888",
+    "project_id": "pollls-app",
+    "storage_bucket": "pollls-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723846073888:android:6f033f695dfab2f13b3645",
+        "android_client_info": {
+          "package_name": "com.example.polls_app_with_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8nzpxSgSGnJaowp0YWZlGHHXC7ycxuvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
