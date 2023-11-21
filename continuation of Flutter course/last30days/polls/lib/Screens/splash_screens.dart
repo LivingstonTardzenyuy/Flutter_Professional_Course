@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:polls/Screens/main_activity.dart';
 import 'package:polls/Utils/router.dart';
 
 import 'authentification/auth_page.dart';
@@ -9,6 +10,7 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+
 
 class _SplashScreenState extends State<SplashScreen> {
 
@@ -20,10 +22,16 @@ class _SplashScreenState extends State<SplashScreen> {
         nextPageOnly(context, AuthPage());
       }
         else{
-          // nextPageOnly(context, Main)
+          nextPageOnly(context, MainActivityPage());
       }
-      }
-    });
+      });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    navigate();
   }
   @override
   Widget build(BuildContext context) {
