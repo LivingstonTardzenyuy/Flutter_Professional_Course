@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:polls/Provider/db_provider.dart';
 import 'package:polls/Styles/colors.dart';
 import 'package:provider/provider.dart';
+
+import '../../../Utils/message.dart';
 
 class AddPollPage extends StatefulWidget {
   // const AddPollPage({super.key});
@@ -16,7 +19,7 @@ class _AddPollPageState extends State<AddPollPage> {
   TextEditingController _optionTwoController = TextEditingController();
   TextEditingController _duration = TextEditingController();
 
-  GlobalKey<FormState> _formkey = GlobalKey();
+  final GlobalKey<FormState> _formkey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +52,23 @@ class _AddPollPageState extends State<AddPollPage> {
                     }),
 
                     //create button
-                   Consumer(
-                     builder: (BuildContext context, value, Widget? child) {
+                   Consumer<DbProvider>(
+                     builder: (BuildContext context, db, Widget? child) {
+                       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                         if(db.message != ""){
+                           if(db.message.contains("Poll Created")){
+                             success(context, message: db.message);
+                             db.clear();
+                           }
+
+                           else{
+                             error(context, message: db.message);
+                             db.clear();
+                           }
+                         }
+                       });
                        return GestureDetector(
-                         onTap: () {
+                         onTap:db.status == true ? null : () {
                            if (_formkey.currentState!.validate()){
                              List<Map> options = [{
                                "answer": _optionOneController.text.trim(),
@@ -65,6 +81,7 @@ class _AddPollPageState extends State<AddPollPage> {
                              ];
 
                              print(options);
+                             db.addPoll(question: _questionController.text.trim(), duration: _duration.text.trim(), options: options);
                            }
                          },
 
@@ -72,11 +89,12 @@ class _AddPollPageState extends State<AddPollPage> {
                            height: 50,
                            width: MediaQuery.of(context).size.width - 100,
                            decoration: BoxDecoration(
-                             color: AppColors.primaryColor,
+                             color:db.status == true ? AppColors.grey : AppColors.primaryColor,
                              borderRadius: BorderRadius.circular(10),
                            ),
                            alignment: Alignment.center,
-                           child: const Text('Post'),
+                           child: Text(db.status == true ? "Please wait..." : 'Post poll'),
+
                          ),
 
                        );

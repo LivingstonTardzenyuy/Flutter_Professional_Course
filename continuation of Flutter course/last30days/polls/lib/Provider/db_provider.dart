@@ -50,4 +50,9 @@ class DbProvider extends ChangeNotifier {
     }
 
 }
+
+void clear() {
+    _message = "";
+    notifyListeners();
+}
 }
