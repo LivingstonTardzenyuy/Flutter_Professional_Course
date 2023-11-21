@@ -33,8 +33,8 @@ class _MainActivityPageState extends State<MainActivityPage> {
   }
 
   List<Widget> _pages = [
-    HomePage(),
-    MyPoles(),
+    MyPolls(),
+    MyPolls(),
     AccountPage(),
   ];
 

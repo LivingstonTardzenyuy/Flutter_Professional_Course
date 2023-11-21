@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             ListTile(
                               contentPadding: const EdgeInsets.all(0),
-        
+
                               leading: CircleAvatar(),
                               title: Text('John Paul'),
                               trailing: IconButton(
@@ -45,6 +45,38 @@ class _HomePageState extends State<HomePage> {
 
                             const Text('My Question'),
                             const SizedBox(height: 8.0,),
+                            const Text('Total Votes: 8'),
+
+                            ...List.generate(2, (index) {
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 5, right: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Stack(
+                                          children: [
+                                            LinearProgressIndicator(
+                                              minHeight: 30.0,
+                                              backgroundColor: AppColors.white,
+                                              value: 50 / 100,
+                                            ),
+                                            Container(
+                                              alignment: Alignment.centerLeft,
+                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                              height: 30,
+                                              child: Text('Destiny'),
+                                            ),
+                                          ],
+                                        ),
+                                    ),
+
+                                    SizedBox(width: 20,),
+                                    Text('5%'),
+                                  ],
+                                ),
+                              );
+                            })
+
 
                           ],
                         ),
