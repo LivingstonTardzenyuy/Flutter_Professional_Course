@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polls/Styles/colors.dart';
+import 'package:provider/provider.dart';
 
 class AddPollPage extends StatefulWidget {
   // const AddPollPage({super.key});
@@ -47,26 +48,39 @@ class _AddPollPageState extends State<AddPollPage> {
                       });
                     }),
 
-
-
                     //create button
-                   GestureDetector(
-                     onTap: () {
-                       if (_formkey.currentState!.validate()){
+                   Consumer(
+                     builder: (BuildContext context, value, Widget? child) {
+                       return GestureDetector(
+                         onTap: () {
+                           if (_formkey.currentState!.validate()){
+                             List<Map> options = [{
+                               "answer": _optionOneController.text.trim(),
+                               "percent": 0,
+                             },
+                               {
+                                 "answer": _optionTwoController.text.trim(),
+                                 "percent": 0,
+                               }
+                             ];
 
-                       }
+                             print(options);
+                           }
+                         },
+
+                         child: Container(
+                           height: 50,
+                           width: MediaQuery.of(context).size.width - 100,
+                           decoration: BoxDecoration(
+                             color: AppColors.primaryColor,
+                             borderRadius: BorderRadius.circular(10),
+                           ),
+                           alignment: Alignment.center,
+                           child: const Text('Post'),
+                         ),
+
+                       );
                      },
-
-                     child: Container(
-                       height: 50,
-                       width: MediaQuery.of(context).size.width - 100,
-                       decoration: BoxDecoration(
-                         color: AppColors.primaryColor,
-                         borderRadius: BorderRadius.circular(10),
-                       ),
-                       alignment: Alignment.center,
-                       child: const Text('Post'),
-                     ),
 
                    )
                   ],
