@@ -4,6 +4,7 @@ import 'package:polls/firebase_options.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/authentification_provider.dart';
+import 'Provider/bottom_nav_provider.dart';
 import 'Screens/splash_screens.dart';
 
 Future<void> main() async {
@@ -29,6 +30,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => AuthProvider()),
+          ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ],
     child: MaterialApp(
         home: SplashScreen(),

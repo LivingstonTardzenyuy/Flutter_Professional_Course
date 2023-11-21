@@ -26,7 +26,7 @@ class _AuthPageState extends State<AuthPage> {
               }
 
               else{
-                nextPageOnly(context, const MainActivityPage());
+                nextPageOnly(context, MainActivityPage());
               }
             });
           },
