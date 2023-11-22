@@ -17,7 +17,7 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthProvider>(
+    return Consumer<AuthProviders>(
       builder: (BuildContext context, data, child){
         return Scaffold(
           body: Center(
@@ -27,7 +27,7 @@ class _AuthPageState extends State<AuthPage> {
                   if(value.user == null){
                     error(context, message: "Please try again");
                   } else{
-                    nextPage(context, const MainActivity());
+                    nextPage(context, MainActivity());
                   }
                 });
               },

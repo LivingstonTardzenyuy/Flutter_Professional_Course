@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pollsv2/Utils/router.dart';
 
 import 'Authentification/auth_page.art.dart';
+import 'main_activity_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (user == null){
         nextPageOnly(context, AuthPage());
       } else {
-        // nextPage(context, MainActivityPage)
+        nextPage(context, MainActivity());
       }
     });
   }

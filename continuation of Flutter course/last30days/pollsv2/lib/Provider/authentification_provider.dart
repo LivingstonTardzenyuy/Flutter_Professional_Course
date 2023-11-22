@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthProvider extends ChangeNotifier{
+class AuthProviders extends ChangeNotifier{
 
 
   // SIGNIN AND SIGNUP OF USERS.
@@ -24,7 +24,7 @@ class AuthProvider extends ChangeNotifier{
   }
 
 
-  Future<bool> logout() async {
+  Future<bool> logOut() async {
     try{
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
