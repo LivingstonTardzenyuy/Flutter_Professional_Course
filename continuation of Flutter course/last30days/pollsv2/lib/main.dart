@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'Provider/authentification_provider.dart';
 import 'Provider/botton_nav_provider.dart';
+import 'Provider/db_provider.dart';
+import 'Provider/fetch_polls_provider.dart';
 import 'Screens/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -31,6 +33,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProviders()),
         ChangeNotifierProvider(create: (context) => BottonNavProvider()),
+        ChangeNotifierProvider(create: (context) => ProviderPro()),
+        ChangeNotifierProvider(create: (context) => FetchPollsProvider()),
       ],
 
       child: MaterialApp(
