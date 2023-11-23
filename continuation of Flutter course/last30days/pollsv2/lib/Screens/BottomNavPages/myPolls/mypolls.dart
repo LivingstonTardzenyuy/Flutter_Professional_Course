@@ -45,7 +45,7 @@ class _MyPolesState extends State<MyPoles> {
                                 ListTile(
                                   // contentPadding:
                                   leading: CircleAvatar(backgroundColor: Colors.blue,),
-                                  title: Text("Kongnyuy Livingston"),
+                                  title: Text("Kongnyuy Livingston", style: TextStyle(fontWeight: FontWeight.bold),),
                                   trailing: IconButton(
                                     onPressed: () {},
                                     icon: Icon(Icons.delete),
@@ -53,7 +53,7 @@ class _MyPolesState extends State<MyPoles> {
                                   ,
                                 ),
 
-                                Text('My Question'),
+                                Text('My Question', style: TextStyle(fontWeight: FontWeight.w700,),),
                                 const SizedBox(height: 8,),
                                 ...List.generate(2, (index) {
                                   return Container(
