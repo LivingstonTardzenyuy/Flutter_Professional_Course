@@ -1,11 +1,14 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pollsv2/Utils/messages.dart';
 import 'package:pollsv2/Utils/router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Provider/db_provider.dart';
 import '../../../Provider/fetch_polls_provider.dart';
 import '../../../Styles/colors.dart';
 import 'add_new_polls.dart';
@@ -19,6 +22,38 @@ class MyPoles extends StatefulWidget {
 
 class _MyPolesState extends State<MyPoles> {
   bool _isFetched = false;
+
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text('Alert'),
+        content: const Text('Proceed with destructive action?'),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            /// This parameter indicates this action is the default,
+            /// and turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No'),
+          ),
+          CupertinoDialogAction(
+            /// This parameter indicates the action would perform
+            /// a destructive action such as deletion, and turns
+            /// the action's text color to red.
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -79,11 +114,29 @@ class _MyPolesState extends State<MyPoles> {
                                         backgroundColor: Colors.blue,),
                                       title: Text(author["name"], style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
                                       subtitle: Text(formattedDate),
-                                      trailing: IconButton(
-                                        onPressed: () {
-                                          //
+                                      trailing: Consumer<ProviderPro>(
+                                        builder: (BuildContext context, deletePoll, child) {
+                                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                                            if(deletePoll.message != ""){
+                                              if (deletePoll.message.contains('Poll Deleted')){
+                                                success(context, message: deletePoll.message);
+                                                deletePoll.clear();
+                                              } else{
+                                                error(context, message: deletePoll.message);
+                                                polls.fetchUserPolls();
+                                                deletePoll.clear();
+                                              }
+                                            }
+                                          });
+                                          return IconButton(
+                                            onPressed: deletePoll.status == true ? null :
+                                                () {
+                                              deletePoll.deletePoll(pollId: pollData.id);
+                                            },
+                                            icon: deletePoll.status == true ? CircularProgressIndicator() : Icon(Icons.delete),
+                                          );
                                         },
-                                        icon: Icon(Icons.delete),
+
                                       )
                                       ,
                                     ),
@@ -93,39 +146,33 @@ class _MyPolesState extends State<MyPoles> {
                                     ...List.generate(options.length, (index) {
                                       final dataOptions = options[index];         // print out users particular answer.
 
-                                      return GestureDetector(
-                                        onTap: () {
-                                          //update vote
-                                          log(dataOptions.toString());
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.only(bottom: 5, right: 30),
+                                      return Container(
+                                        padding: const EdgeInsets.only(bottom: 5, right: 30),
 
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    LinearProgressIndicator(
-                                                      minHeight: 30,
-                                                      backgroundColor: AppColors.white,
-                                                      value: dataOptions['percent'] / 100,
-                                                    ),
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                      height: 30,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Stack(
+                                                children: [
+                                                  LinearProgressIndicator(
+                                                    minHeight: 30,
+                                                    backgroundColor: AppColors.white,
+                                                    value: dataOptions['percent'] / 100,
+                                                  ),
+                                                  Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                    height: 30,
 
-                                                      child: Text(dataOptions['answer']),
-                                                    )
-                                                  ],
-                                                ),
+                                                    child: Text(dataOptions['answer']),
+                                                  )
+                                                ],
                                               ),
+                                            ),
 
-                                              Text("${dataOptions['percent']}%")
-                                            ],
-                                          ),
+                                            Text("${dataOptions['percent']}%")
+                                          ],
                                         ),
                                       );
                                     }),
