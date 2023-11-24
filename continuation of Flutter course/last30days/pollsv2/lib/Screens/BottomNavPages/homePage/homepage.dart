@@ -43,13 +43,13 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           ...List.generate(polls.pollsList.length, (index) {
-                            final data = polls.pollsList[index];          //getting individual data from our db
+                            final pollData = polls.pollsList[index];          //getting individual data from our db
 
                             //accessing the data from backEnd.
-                            log(data.data().toString());      //diplaying data in console.
-                            Map author = data["author"];
-                            Map poll = data["poll"];
-                            Timestamp date = data['dateCreated'];
+                            log(pollData.data().toString());      //diplaying data in console.
+                            Map author = pollData["author"];
+                            Map poll = pollData["poll"];
+                            Timestamp date = pollData['dateCreated'];
                             String formattedDate = DateFormat('EEE,yyyy-MM-dd').format(date.toDate());
 
                             List<dynamic>  options = poll['options'];
@@ -83,34 +83,41 @@ class _HomePageState extends State<HomePage> {
                                   Text(poll["questions"]),
                                   const SizedBox(height: 8,),
                                   ...List.generate(options.length, (index) {
-                                    final dataOptions = options[index];
-                                    return Container(
-                                      padding: const EdgeInsets.only(bottom: 5, right: 30),
+                                    final dataOptions = options[index];         // print out users particular answer.
 
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Stack(
-                                              children: [
-                                                LinearProgressIndicator(
-                                                  minHeight: 30,
-                                                  backgroundColor: AppColors.white,
-                                                  value: dataOptions['percent'] / 100,
-                                                ),
-                                                Container(
-                                                  alignment: Alignment.centerLeft,
-                                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                  height: 30,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        //update vote
+                                        log(dataOptions.toString());
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.only(bottom: 5, right: 30),
 
-                                                  child: Text(dataOptions['answer']),
-                                                )
-                                              ],
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Stack(
+                                                children: [
+                                                  LinearProgressIndicator(
+                                                    minHeight: 30,
+                                                    backgroundColor: AppColors.white,
+                                                    value: dataOptions['percent'] / 100,
+                                                  ),
+                                                  Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                    height: 30,
+
+                                                    child: Text(dataOptions['answer']),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
 
-                                          Text("${dataOptions['percent']}%")
-                                        ],
+                                            Text("${dataOptions['percent']}%")
+                                          ],
+                                        ),
                                       ),
                                     );
                                   }),
@@ -123,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     )
-                )
+                ),
               ],
             );
           },
