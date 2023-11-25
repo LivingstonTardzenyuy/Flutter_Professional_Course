@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'Provider/authentification_provider.dart';
 import 'Provider/bottom_nav_provider.dart';
 import 'Provider/db_provider.dart';
+import 'Provider/fetch_polls.dart';
 import 'Screens/splash_screens.dart';
 
 Future<void> main() async {
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (context) => AuthProvider()),
           ChangeNotifierProvider(create: (context) => BottomNavProvider()),
           ChangeNotifierProvider(create: (context) => DbProvider()),
+          ChangeNotifierProvider(create: (context) => FetchPollsProvider()),
         ],
     child: MaterialApp(
         home: SplashScreen(),
