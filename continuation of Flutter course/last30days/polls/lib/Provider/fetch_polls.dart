@@ -33,24 +33,21 @@ class FetchPollsProvider extends ChangeNotifier{
     });
   }
 
-
-  // fetching users poll
   void fetchUserPolls() async {
-    pollCollection.get().then((value){
-      if (value.docs.isEmpty){
+    pollCollection
+        .where("author.uid", isEqualTo: user!.uid)
+        .get()
+        .then((value) {
+      if (value.docs.isEmpty) {
         _isLoading = false;
-        _usersPollProvider =[];
-      } else{
+        _usersPollProvider = [];
+      } else {
         final data = value.docs;
-        for (var i in data){                      //iterating across all the objects and getting only the objects that belong to the currently log in user.
-          if (i.get("author")["uid"] == user!.uid){
-            _usersPollProvider = data;
-            _isLoading = false;
-            notifyListeners();
-          }
-        }
-
+        _usersPollProvider = data;
+        _isLoading = false;
+        notifyListeners();
       }
     });
   }
+
 }
