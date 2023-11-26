@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:polls/Utils/message.dart';
 import 'package:polls/Utils/router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Provider/db_provider.dart';
 import '../../../Provider/fetch_polls.dart';
 import '../../../Styles/colors.dart';
 import 'add_new_poles.dart';
@@ -64,9 +66,29 @@ class _MyPollsState extends State<MyPolls> {
                                       backgroundImage: NetworkImage(author["profileImage"]),
                                     ),
                                     title: Text(author["name"]),
-                                    trailing: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.delete),
+                                    trailing: Consumer<DbProvider>(
+                                      builder: (BuildContext context, pollDelete, child){
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                          if(pollDelete.message != ""){
+                                            if(pollDelete.message.contains("Poll Deleted")){
+                                              success(context, message: pollDelete.message);
+                                              polls.fetchAllPolls();
+                                              pollDelete.clear();
+                                            } else {
+                                              error(context, message: pollDelete.message);
+                                              pollDelete.clear();
+                                            }
+                                          }
+                                        });
+
+                                        return IconButton(
+                                          onPressed: pollDelete.status == "true" ? null : () {
+                                            pollDelete.deletePoll(pollId: data.id);
+                                          },
+                                          icon:pollDelete.status == true ? CircularProgressIndicator() : Icon(Icons.delete),
+                                        );
+
+                                      },
                                     ),
                                   ),
 

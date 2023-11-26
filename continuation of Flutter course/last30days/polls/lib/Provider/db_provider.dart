@@ -52,6 +52,29 @@ class DbProvider extends ChangeNotifier {
 
 }
 
+void deletePoll({required String pollId}) async {
+    _status = true;
+    notifyListeners();
+
+    try{
+      await pollCollection.doc(pollId).delete();
+      _message = "Poll Deleted";
+      _status = false;
+
+      notifyListeners();
+    } on FirebaseException catch (e){
+      _message = e.message!;
+      _status = false;
+      notifyListeners();
+    }
+
+    catch(e){
+      _message = "Please try again...";
+      _status = false;
+      notifyListeners();
+    }
+}
+
 void clear() {
     _message = "";
     notifyListeners();
