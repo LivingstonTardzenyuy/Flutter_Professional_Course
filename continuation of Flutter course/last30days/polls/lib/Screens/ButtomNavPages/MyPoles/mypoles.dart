@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:polls/Utils/message.dart';
 import 'package:polls/Utils/router.dart';
@@ -19,6 +20,51 @@ class MyPolls extends StatefulWidget {
 }
 
 class _MyPollsState extends State<MyPolls> {
+  void deletePoll(String pollId) {
+    // Implement the logic to delete the poll using the pollId
+    // For example, using the Firestore delete operation:
+    FirebaseFirestore.instance.collection('polls').doc(pollId).delete()
+        .then((value) {
+      // Poll deleted successfully
+      // You can update the state or show a success message if needed
+    })
+        .catchError((error) {
+      // An error occurred while deleting the poll
+      // You can handle the error or show an error message
+    });
+  }
+
+  void _showAlertDialog(BuildContext context, String pollId) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text(
+          'Alert',
+          style: TextStyle(color: Colors.red, fontSize: 20),
+        ),
+        content: const Text('Are you sure you want to delete this poll?'),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No'),
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              // Call the method to delete the poll using the pollId
+              deletePoll(pollId);
+              Navigator.pop(context);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   bool _isFetched = false;
   @override
   Widget build(BuildContext context) {
@@ -83,9 +129,9 @@ class _MyPollsState extends State<MyPolls> {
 
                                         return IconButton(
                                           onPressed: pollDelete.status == "true" ? null : () {
-                                            pollDelete.deletePoll(pollId: data.id);
+                                            _showAlertDialog(context, data.id); // Pass the pollId here
                                           },
-                                          icon:pollDelete.status == true ? CircularProgressIndicator() : Icon(Icons.delete),
+                                          icon: pollDelete.status == true ? CircularProgressIndicator() : Icon(Icons.delete),
                                         );
 
                                       },
