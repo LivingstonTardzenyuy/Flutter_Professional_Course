@@ -27,7 +27,8 @@ class DbProvider extends ChangeNotifier {
           "total_votes": 0,
           "voters": <Map>[],
           "questions": question,
-          "duration": options,
+          "duration": duration,
+          "options": options,
         }
       };
 
