@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                                                                   horizontal:
                                                                   10),
                                                               height: 30,
-                                                              child: Text(dataOption["answer"] ?? "No answer available"),
+                                                              child: Text(dataOption["answer"] ?? "No answer available yet"),
                                                             )
                                                           ],
                                                         ),
