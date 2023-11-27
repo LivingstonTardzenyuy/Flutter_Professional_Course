@@ -10,7 +10,7 @@ class FetchPollsProvider extends ChangeNotifier{
   
   bool get isLoading => _isLoading;
   List<DocumentSnapshot> get pollList => _pollsList;
-  List<DocumentSnapshot> get usersPollProvider => _usersPollProvider;
+  List<DocumentSnapshot> get userPollProvider => _usersPollProvider;
   
   User? user = FirebaseAuth.instance.currentUser;
   
