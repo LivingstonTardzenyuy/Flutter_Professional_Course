@@ -75,6 +75,10 @@ class _MyPollsState extends State<MyPolls> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Center(child: Text("Your Polls", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 28),)),
+      ),
       body: Consumer<FetchPollsProvider>(
         builder: (BuildContext context, FetchPollsProvider polls, Widget? child) {
           if (_isFetched == false) {

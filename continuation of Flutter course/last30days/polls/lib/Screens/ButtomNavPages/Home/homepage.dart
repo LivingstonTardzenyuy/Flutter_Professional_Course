@@ -26,6 +26,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Center(child: Text("All Polls", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 28),)),
+      ),
       body: Consumer<FetchPollsProvider>(builder: (context, polls, child) {
         if (_isFetched == false) {
           polls.fetchAllPolls();

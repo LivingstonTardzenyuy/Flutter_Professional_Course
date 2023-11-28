@@ -31,15 +31,22 @@ class _AuthPageState extends State<AuthPage> {
             });
           },
 
-          child: Container(
-            height: 50.0,
-            width: 100,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.center,
-            child: const Text('Login'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Welcome to the Polling app", style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25, color: Colors.lightBlueAccent),),
+              SizedBox(height: 20,),
+              Container(
+                height: 50.0,
+                width: 140,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                alignment: Alignment.center,
+                child: const Text('Login via email', style: TextStyle(color: Colors.white),),
+              ),
+            ],
           ),
         ),
 
