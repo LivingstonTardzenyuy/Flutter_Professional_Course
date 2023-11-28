@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_firestore/firebase_options.dart';
 import 'package:firebase_firestore/provider/auth_provider.dart';
+import 'package:firebase_firestore/routes.dart';
 import 'package:firebase_firestore/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,34 +12,22 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(RegisterScreen());
+  runApp(MyApp());
 }
 
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-      ],
-      child: MaterialApp(
-        home: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(child: Text('My App'),),
-              FlutterLogo()
-            ],
-          )
-        ),
+    return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
       ),
+      initialRoute: RoutePages.landigPage,
+      routes: RoutePages.allScreens,
+
     );
   }
 }

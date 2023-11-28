@@ -15,10 +15,29 @@ class LoginScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildTextField(controller: _email, label: 'Email'),
             SizedBox(height: 20),
             _buildTextField(controller: _password, label: "Password"),
+
+            SizedBox(height: 30,),
+            Container(
+              color: Colors.blue,
+              height: 40,
+              width: MediaQuery.of(context).size.width -10,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue
+                ),
+                onPressed: () {},
+                child: Text('Submit', style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                ),),
+              ),
+            ),
+
           ],
         ),
       ),

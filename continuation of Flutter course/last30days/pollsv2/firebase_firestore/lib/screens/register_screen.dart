@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/auth_provider.dart';
+import '../routes.dart';
 
 class RegisterScreen extends StatelessWidget {
 
@@ -16,8 +17,7 @@ class RegisterScreen extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
       ],
-      child: MaterialApp(
-        home: Scaffold(
+      child: Scaffold(
           appBar: AppBar(
             title: Text("Register"),
             centerTitle: true,
@@ -57,7 +57,9 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text("Already have an account ?.", style: TextStyle(fontSize: 15),),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, RoutePages.loginPage);
+                        },
                         child: Text("Login here", style: TextStyle(fontSize: 15),)),
                   ],
                 )
@@ -65,7 +67,6 @@ class RegisterScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
 
   }
