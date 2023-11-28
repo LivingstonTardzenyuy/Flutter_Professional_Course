@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/auth_login.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController _password = TextEditingController();
@@ -14,31 +18,47 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildTextField(controller: _email, label: 'Email'),
-            SizedBox(height: 20),
-            _buildTextField(controller: _password, label: "Password"),
+        child: Consumer<AuthLoginProvider>(
+          builder: (context, loginProvider, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildTextField(controller: _email, label: 'Email'),
+                SizedBox(height: 20),
+                _buildTextField(controller: _password, label: "Password"),
 
-            SizedBox(height: 30,),
-            Container(
-              color: Colors.blue,
-              height: 40,
-              width: MediaQuery.of(context).size.width -10,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue
+                SizedBox(height: 30,),
+                Container(
+                  color: Colors.blue,
+                  height: 40,
+                  width: MediaQuery.of(context).size.width -10,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue
+                    ),
+                    onPressed: () async {
+                      if(_email.text == "" || _password.text == ""){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Both Fields are required'), backgroundColor: Colors.red,));
+                      } else {
+                        User? result = await loginProvider.login(_email.text, _password.text);
+                        if (result != null ){
+                          print("success");
+                          print(result.email);
+                        }
+                      }
+
+                    },
+                    child: Text('Submit', style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),),
+                  ),
                 ),
-                onPressed: () {},
-                child: Text('Submit', style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                ),),
-              ),
-            ),
 
-          ],
+              ],
+            );
+          },
+
         ),
       ),
     );

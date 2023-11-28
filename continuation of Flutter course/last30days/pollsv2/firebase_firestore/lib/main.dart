@@ -6,6 +6,8 @@ import 'package:firebase_firestore/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Provider/auth_login.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,13 +23,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      initialRoute: RoutePages.landigPage,
-      routes: RoutePages.allScreens,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthLoginProvider()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+        ),
+        initialRoute: RoutePages.landigPage,
+        routes: RoutePages.allScreens,
 
+      ),
     );
   }
 }

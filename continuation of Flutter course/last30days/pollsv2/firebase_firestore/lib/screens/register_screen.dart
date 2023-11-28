@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Provider/auth_login.dart';
 import '../provider/auth_provider.dart';
 import '../routes.dart';
 
@@ -13,21 +15,19 @@ class RegisterScreen extends StatelessWidget {
   TextEditingController _confirmPassword = TextEditingController();
 
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-      ],
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text("Register"),
-            centerTitle: true,
-            backgroundColor: Colors.orangeAccent,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Register"),
+          centerTitle: true,
+          backgroundColor: Colors.orangeAccent,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Consumer<AuthLoginProvider>(
+            builder: (context, signup, child){
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   formWidget(_emailController, label: "Email"),
                   SizedBox(height: 30,),
                   formWidget(_passwordController, label: "Password"),
@@ -39,35 +39,49 @@ class RegisterScreen extends StatelessWidget {
                     color: Colors.blue,
                     height: 40,
                     width: MediaQuery.of(context).size.width -10,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue
+                      ),
+                      onPressed: () async{
+                        if(_emailController.text == "" || _passwordController.text == ""){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("All fields are required"), backgroundColor: Colors.red));
+                        } else if(_passwordController.text != _confirmPassword.text) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("The 2 passwords must match"), backgroundColor: Colors.red,));
+                        } else {
+                          User? result = await signup.register(_emailController.text, _emailController.text);
+                          if(result != null){
+                            print("success");
+                            print(result.email);
+                          }
+                        }
+                      },
+                      child: Text('Submit', style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),),
                     ),
-                    onPressed: () {},
-                    child: Text('Submit', style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                    ),),
-                  ),
                   ),
 
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Already have an account ?.", style: TextStyle(fontSize: 15),),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, RoutePages.loginPage);
-                        },
-                        child: Text("Login here", style: TextStyle(fontSize: 15),)),
-                  ],
-                )
-              ],
-            ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Already have an account ?.", style: TextStyle(fontSize: 15),),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, RoutePages.loginPage);
+                          },
+                          child: Text("Login here", style: TextStyle(fontSize: 15),)),
+                    ],
+                  )
+                ],
+              );
+            },
+
           ),
         ),
-    );
+      );
 
   }
 
