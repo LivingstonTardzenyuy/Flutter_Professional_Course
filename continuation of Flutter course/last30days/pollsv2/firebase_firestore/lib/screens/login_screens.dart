@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/auth_login.dart';
+import '../Provider/authentification.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController _password = TextEditingController();
@@ -40,11 +40,16 @@ class LoginScreen extends StatelessWidget {
                       if(_email.text == "" || _password.text == ""){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Both Fields are required'), backgroundColor: Colors.red,));
                       } else {
-                        User? result = await loginProvider.login(_email.text, _password.text);
-                        if (result != null ){
-                          print("success");
-                          print(result.email);
+                        try{
+                          User? result = await loginProvider.login(_email.text, _password.text);
+                              if(result !=null){
+                                print("sucess");
+                                print(result.email);
+                              }
+                        } catch (e){
+                          print("login error: $e");
                         }
+
                       }
 
                     },

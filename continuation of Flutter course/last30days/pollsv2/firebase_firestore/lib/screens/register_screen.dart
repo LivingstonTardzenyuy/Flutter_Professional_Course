@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/auth_login.dart';
+import '../Provider/authentification.dart';
 import '../provider/auth_provider.dart';
 import '../routes.dart';
 
@@ -49,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                         } else if(_passwordController.text != _confirmPassword.text) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("The 2 passwords must match"), backgroundColor: Colors.red,));
                         } else {
-                          User? result = await signup.register(_emailController.text, _emailController.text);
+                          User? result = await signup.register(_emailController.text, _passwordController.text);
                           if(result != null){
                             print("success");
                             print(result.email);
