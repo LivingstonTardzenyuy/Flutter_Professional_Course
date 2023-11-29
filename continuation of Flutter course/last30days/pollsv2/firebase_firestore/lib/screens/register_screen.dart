@@ -1,19 +1,28 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:provider/provider.dart';
-
 import '../Provider/authentification.dart';
-import '../provider/auth_provider.dart';
+import '../Provider/authentification.dart';
 import '../routes.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
 
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  @override
   TextEditingController _emailController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
+
   TextEditingController _confirmPassword = TextEditingController();
 
+  bool _isLoading = false;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -53,8 +62,12 @@ class RegisterScreen extends StatelessWidget {
                           if(result != null){
                             print("success");
                             print(result.email);
+                            Navigator.pushNamed(context, RoutePages.loginPage);
+
                           }
-                        }
+
+                      }
+
                       },
                       child: Text('Submit', style: TextStyle(
                         fontSize: 25,
@@ -74,7 +87,27 @@ class RegisterScreen extends StatelessWidget {
                           },
                           child: Text("Login here", style: TextStyle(fontSize: 15),)),
                     ],
-                  )
+                  ),
+
+                  SizedBox(height: 20,),
+                  // Divider(height: 20,),
+                  _isLoading ? CircularProgressIndicator() : Consumer<AuthLoginProviderGoogle>(
+                      builder: (context, googleAuth, child){
+                        return SignInButton(Buttons.Google, text: "Register with Google",
+                            onPressed: () async{
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              await googleAuth.signInWithGoogle();
+                              Navigator.pushNamed(context, RoutePages.homePage);
+
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            }
+                        );
+                      },
+                  ),
                 ],
               );
             },
@@ -84,7 +117,6 @@ class RegisterScreen extends StatelessWidget {
       );
 
   }
-
 
   Widget formWidget(TextEditingController controller, {String? label, VoidCallback? onTap}){
     return TextField(
