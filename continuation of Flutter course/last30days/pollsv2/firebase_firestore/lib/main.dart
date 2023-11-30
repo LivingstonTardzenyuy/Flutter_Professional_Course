@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthLoginProvider()),
         ChangeNotifierProvider(create: (context) => AuthLoginProviderGoogle()),
         ChangeNotifierProvider(create: (context) => Crud()),
+
+        ChangeNotifierProvider(create: (context) => FireStoreService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
               // Show a loading indicator or splash screen while checking authentication state.
               return CircularProgressIndicator(); // Replace this with your loading widget.
             } else if (snapshot.hasData) {
-              return HomeScreen();
+              return HomeScreen(user: snapshot.data,);
             }
             return RegisterScreen();
           },
@@ -71,3 +73,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// 1:36

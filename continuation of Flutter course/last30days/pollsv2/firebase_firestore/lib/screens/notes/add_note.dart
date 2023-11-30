@@ -1,8 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../Provider/crudOperationsUsingFirestore.dart';
 
 class AddNoteScreen extends StatefulWidget {
-  const AddNoteScreen({super.key});
-
+  AddNoteScreen({
+    super.key,
+    required this.user
+  });
+  User user;
   @override
   State<AddNoteScreen> createState() => _AddNoteScreenState();
 }
@@ -11,7 +18,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
 
   TextEditingController _title = TextEditingController();
-  // TextEditingController
+  TextEditingController _description = TextEditingController();
+  bool isLoading = false;
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -33,23 +42,41 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               TextField(
                 minLines: 5,
                 maxLines: 10,
+                controller: _description,
                 decoration: InputDecoration(
                     border: OutlineInputBorder()
                 ),
               ),
 
               SizedBox(height: 30,),
-              Container(
-                color: Colors.orange,
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                child: GestureDetector(
-                  onTap: () {
 
-                  },
-                  child: Center(child: Text("Add Note",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
+              isLoading == true? Center(child: CircularProgressIndicator()) : Consumer<FireStoreService>(
+                builder: (BuildContext context, FireStoreService value, Widget? child) {
+                  return Container(
+                    color: Colors.orange,
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: GestureDetector(
+                      onTap: () async {
+                        if(_description.text == null || _title.text == null){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("All fields are required"), backgroundColor: Colors.red,));
+                        } else {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          value.insertNote(_title.text, _description.text, widget.user.uid);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Center(child: Text("Add Note",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
 
-                ),
+                    ),
+                  );
+                },
+
               )
             ],
           ),

@@ -41,3 +41,22 @@ class Crud extends ChangeNotifier {
     await firestore.collection("users").doc("Flutter123").delete();
   }
 }
+
+
+class FireStoreService extends ChangeNotifier{
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // CollectionReference collectionReference = firestore.settings.
+
+  Future insertNote(String title, String description, String userId) async{
+    try{
+      await firestore.collection("notes").add({
+       "title": title,
+       "description": description,
+       "data": DateTime.now(),
+       "userID": userId
+      });
+    } catch (e){
+      print(e);
+    }
+  }
+}

@@ -7,7 +7,7 @@ class RoutePages{
   static final allScreens = {
     landigPage: (BuildContext context) => RegisterScreen(),
     loginPage: (BuildContext context) => LoginScreen(),
-    homePage: (BuildContext context) => HomeScreen(),
+    // homePage: (BuildContext context) => HomeScreen(user: user,),
   };
 
   static const String landigPage = "Landing Page";

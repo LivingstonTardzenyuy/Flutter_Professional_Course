@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                                 print("sucess");
                                 print(result.email);
                                 Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(builder: (context) => HomeScreen()),
+                                MaterialPageRoute(builder: (context) => HomeScreen(user: result,)),
                                     (route) => false);
                               }
                         } catch (e){
