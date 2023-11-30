@@ -23,7 +23,7 @@ class Crud extends ChangeNotifier {
       print(result.data());
     });
 
-    DocumentSnapshot result = await users.doc
+    // DocumentSnapshot result = await users.doc
   }
 
 }
