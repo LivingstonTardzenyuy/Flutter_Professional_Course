@@ -1,17 +1,19 @@
-import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_firestore/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/authentification.dart';
 import '../Provider/crudOperationsUsingFirestore.dart';
+import '../main.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    late FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
@@ -23,19 +25,18 @@ class HomeScreen extends StatelessWidget {
               return TextButton(
                 onPressed: () async {
                   await logOut.signOut();
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()), (route) => false);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                          (route) => false);
                 },
-                child: Icon(Icons.logout,),
+                child: Icon(Icons.logout),
               );
-
             },
           )
         ],
       ),
-
       body: Consumer<Crud>(
-
         builder: (BuildContext context, value, Widget? child) {
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -44,21 +45,34 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    value.CrudAdd();
+                  onPressed: () async {
+                    // Check if the user is authenticated before adding data to Firestore
+                    if (AuthService().firebaseAuth.currentUser != null) {
+                      await value.GetData();
+                    } else {
+                      print("User not authenticated");
+                    }
                   },
-                  child: Text('Add data to Firestore', style: TextStyle(color: Colors.white),),
+                  child: Text('Add data to Firestore', style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
+                ),
+                
+                Consumer<Crud>(
+                  builder: (BuildContext context, Crud value, Widget? child) {
+                    return ElevatedButton(
+                        onPressed: () async{
+                          await value.GetData();
+                        },
+                        child: Text("Read data from firestore"));
+                  },
 
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.blue
-                  ),
                 )
               ],
             ),
           );
         },
-
       ),
+
     );
   }
 }

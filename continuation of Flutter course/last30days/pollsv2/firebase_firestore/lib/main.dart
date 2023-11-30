@@ -16,16 +16,25 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(MyApp());
 }
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseAuth get firebaseAuth => _firebaseAuth;
+
+  // Constructor to handle authentication state persistence
+  AuthService() {
+    // Set the authentication state persistence
+    _firebaseAuth.authStateChanges().listen((User? user) {
+      print("Authentication state changed: $user");
+    });
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,10 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder<User?>(
           stream: AuthService().firebaseAuth.authStateChanges(),
           builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // Show a loading indicator or splash screen while checking authentication state.
+              return CircularProgressIndicator(); // Replace this with your loading widget.
+            } else if (snapshot.hasData) {
               return HomeScreen();
             }
             return RegisterScreen();
