@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/authentification.dart';
+import 'Provider/crudOperationsUsingFirestore.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthLoginProvider()),
         ChangeNotifierProvider(create: (context) => AuthLoginProviderGoogle()),
+        ChangeNotifierProvider(create: (context) => Crud()),
       ],
       child: MaterialApp(
         theme: ThemeData(

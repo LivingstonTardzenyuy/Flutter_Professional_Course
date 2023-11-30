@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/authentification.dart';
+import '../Provider/crudOperationsUsingFirestore.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,6 +32,32 @@ class HomeScreen extends StatelessWidget {
             },
           )
         ],
+      ),
+
+      body: Consumer<Crud>(
+
+        builder: (BuildContext context, value, Widget? child) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    value.CrudAdd();
+                  },
+                  child: Text('Add data to Firestore', style: TextStyle(color: Colors.white),),
+
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blue
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+
       ),
     );
   }
