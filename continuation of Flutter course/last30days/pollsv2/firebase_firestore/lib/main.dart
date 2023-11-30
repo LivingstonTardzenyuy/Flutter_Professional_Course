@@ -45,8 +45,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Crud()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
+          brightness: Brightness.dark
         ),
         initialRoute: RoutePages.landigPage,
         routes: RoutePages.allScreens,

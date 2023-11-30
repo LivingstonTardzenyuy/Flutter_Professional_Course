@@ -18,12 +18,26 @@ class Crud extends ChangeNotifier {
 
   Future<void> GetData() async {
     CollectionReference users = firestore.collection('users');
-    QuerySnapshot allResults = await users.get();
-    allResults.docs.forEach((DocumentSnapshot result) {
-      print(result.data());
-    });
+    // QuerySnapshot allResults = await users.get();
+    // allResults.docs.forEach((DocumentSnapshot result) {
+    //   print(result.data());
+    // });
 
     // DocumentSnapshot result = await users.doc
+    users.doc("Flutter123").snapshots().listen((event) {
+      print(event.data());
+    });
+
   }
 
+  Future<void> UpdateData() async {
+    await firestore.collection("users").doc("Flutter123").update({
+      "name" : "Flutter-Django-firebase"
+      }
+    );
+  }
+
+  Future<void> deleteData() async {
+    await firestore.collection("users").doc("Flutter123").delete();
+  }
 }

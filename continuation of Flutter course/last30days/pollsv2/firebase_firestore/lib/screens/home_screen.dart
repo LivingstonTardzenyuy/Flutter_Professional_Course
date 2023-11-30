@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_firestore/screens/notes/add_note.dart';
 import 'package:firebase_firestore/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,45 +34,18 @@ class HomeScreen extends StatelessWidget {
                 child: Icon(Icons.logout),
               );
             },
-          )
+          ),
         ],
       ),
-      body: Consumer<Crud>(
-        builder: (BuildContext context, value, Widget? child) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    // Check if the user is authenticated before adding data to Firestore
-                    if (AuthService().firebaseAuth.currentUser != null) {
-                      await value.GetData();
-                    } else {
-                      print("User not authenticated");
-                    }
-                  },
-                  child: Text('Add data to Firestore', style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(primary: Colors.blue),
-                ),
-                
-                Consumer<Crud>(
-                  builder: (BuildContext context, Crud value, Widget? child) {
-                    return ElevatedButton(
-                        onPressed: () async{
-                          await value.GetData();
-                        },
-                        child: Text("Read data from firestore"));
-                  },
-
-                )
-              ],
-            ),
-          );
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orangeAccent,
+        shape: CircleBorder(),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddNoteScreen()));
         },
+        child: Icon(Icons.add),
       ),
+      body: Text('k')
 
     );
   }
