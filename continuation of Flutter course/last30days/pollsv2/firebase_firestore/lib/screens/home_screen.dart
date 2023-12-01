@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_firestore/screens/models/notes.dart';
 import 'package:firebase_firestore/screens/notes/add_note.dart';
 import 'package:firebase_firestore/screens/notes/edit_notes.dart';
 import 'package:firebase_firestore/screens/register_screen.dart';
@@ -47,25 +48,63 @@ class HomeScreen extends StatelessWidget {
         },
         child: Icon(Icons.add),
       ),
-      body: ListView(
-        children: [
-          Card(
-            color: Colors.pink,
-            elevation: 5,
-            margin: const EdgeInsets.all(10),
-            child: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              title: Text("Build a new App", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
-              subtitle: Text("Learn the build a clean of clubHouse application from Udemy", overflow: TextOverflow.ellipsis, maxLines: 2,),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNoteScreen()));
-              }
-              ,
-            ),
-          )
-        ],
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("notes").where("userID", isEqualTo: user!.uid).snapshots(),
+        builder: (context, AsyncSnapshot snapshot){
+          if (snapshot.hasData){
+            if(snapshot.data.docs.length > 0){
+              return ListView.builder(
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index){
+                    NoteModel note = NoteModel.fromJson(snapshot.data.docs[index]);       //converting json to object
+                    return Card(
+                      color: Colors.teal,
+                      elevation: 5,
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        title: Text(note.title, style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 10
+                        ),),
+                        subtitle: Text(note.description, overflow: TextOverflow.ellipsis, maxLines: 10,),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNoteScreen(note: note,)));
+                        },
+                      ),
+
+                    );
+                  });
+            } else {
+              return Center(
+                child: Text("No Notes yet."),
+              );
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       )
 
     );
   }
 }
+
+
+// ListView(
+// children: [
+// Card(
+// color: Colors.pink,
+// elevation: 5,
+// margin: const EdgeInsets.all(10),
+// child: ListTile(
+// contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+// title: Text("Build a new App", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+// subtitle: Text("Learn the build a clean of clubHouse application from Udemy", overflow: TextOverflow.ellipsis, maxLines: 2,),
+// onTap: () {
+// Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNoteScreen()));
+// }
+// ,
+// ),
+// )
+// ],
+// )

@@ -59,4 +59,27 @@ class FireStoreService extends ChangeNotifier{
       print(e);
     }
   }
+
+
+  Future updateNote(String docId, String title, String description) async {
+    try{
+      await firestore.collection('notes').doc(docId).update({
+        'title': title,
+        'description' : description,
+      });
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      notifyListeners();
+    }
+  }
+
+  Future deleteNote(String docId) async {
+    try{
+      await firestore.collection('notes').doc(docId).delete();
+    } catch (e){
+      print(e);
+      notifyListeners();
+    }
+  }
 }

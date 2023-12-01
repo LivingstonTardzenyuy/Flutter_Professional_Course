@@ -1,16 +1,36 @@
+import 'package:firebase_firestore/screens/models/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../Provider/crudOperationsUsingFirestore.dart';
 
 class EditNoteScreen extends StatefulWidget {
-  const EditNoteScreen({super.key});
+
+  EditNoteScreen({
+    super.key,
+    required this.note,
+  });
+  NoteModel note;
+
 
   @override
   State<EditNoteScreen> createState() => _EditNoteScreenState();
 }
 
 class _EditNoteScreenState extends State<EditNoteScreen> {
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _titleController.text = widget.note.title;
+    _descriptionController.text = widget.note.description;
+  }
   @override
 
-  TextEditingController _title = TextEditingController();
   // TextEditingController
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +39,40 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
         backgroundColor: Colors.blueAccent,
         elevation: 0,
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.delete, color: Colors.red,))
+          Consumer<FireStoreService>(
+            builder: (BuildContext context, FireStoreService delete, child){
+              return IconButton(
+                  onPressed: () async {
+                  await showDialog(
+                      context: context, builder: (BuildContext context){
+                        return AlertDialog(
+                          title: Center(child: Text("Please confirm")),
+                          content: Text("Are you sure you want to delete the Note ?"),
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  await delete.deleteNote(widget.note.id);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Yes")),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: Text("No")),
+
+                          ],
+                        );
+                  });
+
+                  },
+
+                  icon: Icon(Icons.delete, color: Colors.red,));
+            },
+
+          )
         ],
       ),
 
@@ -31,11 +82,12 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              formWidget(_title, label: 'Title'),
+              formWidget(_titleController, label: 'Title'),
 
 
               SizedBox(height: 20,),
               TextField(
+                controller: _descriptionController,
                 minLines: 5,
                 maxLines: 10,
                 decoration: InputDecoration(
@@ -44,16 +96,35 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               ),
 
               SizedBox(height: 30,),
-              Container(
+              isLoading ? Center(child: CircularProgressIndicator(),) : Container(
                 color: Colors.orange,
                 height: 50,
                 width: MediaQuery.of(context).size.width,
-                child: GestureDetector(
-                  onTap: () {
+                child: Consumer<FireStoreService>(
+                  builder: (BuildContext context, FireStoreService update, child){
+                    return GestureDetector(
+                      onTap: () async {
+                        if(_descriptionController.text == "" || _titleController.text == ""){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("All fields are required"), backgroundColor: Colors.red,));
+                        } else {
+                          setState(() {
+                            isLoading = true;
+                          });
+                        }
+                       await update.updateNote(
+                            widget.note.id, _titleController.text, _descriptionController.text);
 
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pop(context);
+                      },
+
+                      child: Center(child: Text("Update Note",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
+
+                    );  
                   },
-                  child: Center(child: Text("Update Note",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
-
+                  
                 ),
               )
             ],

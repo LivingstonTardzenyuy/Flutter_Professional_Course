@@ -11,17 +11,27 @@ class NoteModel{
     required this.id,
     required this.title,
     required this.description,
-    required this.date,
+    required this.date,  // Cast to Timestamp
     required this.userId
 });
 
+  // factory NoteModel.fromJson(DocumentSnapshot snapshot){
+  //   return NoteModel(
+  //       id: snapshot.id,
+  //       title: snapshot['title'],
+  //       description: snapshot['description'],
+  //       date: snapshot['date'],
+  //       userId: snapshot['userId']);
+  //
+  // }
   factory NoteModel.fromJson(DocumentSnapshot snapshot){
     return NoteModel(
-        id: snapshot.id,
-        title: snapshot['title'],
-        description: snapshot['description'],
-        date: snapshot['date'],
-        userId: snapshot['userId']);
-
+      id: snapshot.id,
+      title: snapshot['title'] ?? '',
+      description: snapshot['description'] ?? '',
+      date: snapshot['data'] ?? Timestamp.now(),
+      userId: snapshot['userID'] ?? '',
+    );
   }
+
 }
