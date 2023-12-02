@@ -42,6 +42,8 @@ dependencies:
   firebase_dynamic_links: ^5.4.4
   cloud_firestore: ^4.13.1
   provider: ^6.1.1
+  firebase_analytics: ^10.7.1
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:

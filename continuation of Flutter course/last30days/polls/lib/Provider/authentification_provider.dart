@@ -3,6 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:polls/firebase_options.dart';
 
+class AuthLoginWithEmailPassword extends ChangeNotifier{
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  Future<User?> register(String email, String password) async {
+    UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    notifyListeners();
+    return userCredential.user;
+  }
+
+  Future<User?> login(String email, String password) async {
+    UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    notifyListeners();
+    return userCredential.user;
+  }
+}
+
 class AuthProvider extends ChangeNotifier{
 
 
@@ -23,8 +40,6 @@ class AuthProvider extends ChangeNotifier{
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
-
 
   // SIGNIN OUT  A USER
   Future<bool> logOut() async {

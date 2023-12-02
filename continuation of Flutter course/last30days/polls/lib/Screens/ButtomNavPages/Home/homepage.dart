@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:polls/Utils/dynamic_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -91,12 +92,9 @@ class _HomePageState extends State<HomePage> {
                                         .format(date.toDate())),
                                     trailing: IconButton(
                                         onPressed: () {
-                                          ///
-                                        //   DynamicLinkProvider()
-                                        //       .createLink(data.id)
-                                        //       .then((value) {
-                                        //     Share.share(value);
-                                        //   });
+                                        DynamicLinkProvider().createLink(data.id).then((value){
+                                            Share.share(value);
+                                          });
                                         },
                                         icon: const Icon(Icons.share)),
                                   ),
