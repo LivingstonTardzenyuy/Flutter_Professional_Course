@@ -22,7 +22,7 @@ class _AccountPageState extends State<AccountPage> {
           child: GestureDetector(
             onTap: () {
 
-              AuthProvider().logOut().then((value){
+              AuthProviders().logOut().then((value){
                 if(value == false){
                   error(context, message: "Please try again");
                 }

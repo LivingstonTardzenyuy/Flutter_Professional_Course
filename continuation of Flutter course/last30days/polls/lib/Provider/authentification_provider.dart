@@ -20,7 +20,7 @@ class AuthLoginWithEmailPassword extends ChangeNotifier{
   }
 }
 
-class AuthProvider extends ChangeNotifier{
+class AuthProviders extends ChangeNotifier{
 
 
   // SIGNING IN A USER

@@ -31,10 +31,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => AuthProvider()),
+          ChangeNotifierProvider(create: (context) => AuthProviders()),
           ChangeNotifierProvider(create: (context) => BottomNavProvider()),
           ChangeNotifierProvider(create: (context) => DbProvider()),
           ChangeNotifierProvider(create: (context) => FetchPollsProvider()),
+          ChangeNotifierProvider(create: (context) => AuthLoginWithEmailPassword()),
         ],
     child: MaterialApp(
         home: SplashScreen(),
