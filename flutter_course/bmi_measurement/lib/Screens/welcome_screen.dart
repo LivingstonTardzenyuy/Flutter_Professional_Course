@@ -1,5 +1,8 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:oop/routes.dart';
+
+import '../components/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -7,6 +10,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
+
   late AnimationController controller;
   late Animation animation;
   @override
@@ -14,21 +18,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 1),
     );
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
     controller.forward();
-
     controller.addListener(() {
       setState(() {
-        print(animation.value);
       });
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -42,57 +44,35 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   tag: "logo",
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value * 100,
+                    height: 60.0,
                   ),
                 ),
-                Text("Chat App", style: TextStyle(color: Colors.black, fontSize: 46, fontWeight: FontWeight.w800),)
+                TypewriterAnimatedTextKit(
+                  text: ["Chat App"], textStyle: TextStyle(color: Colors.black, fontSize: 46, fontWeight: FontWeight.w800), speed: Duration(milliseconds: 500),)
               ],
             ),
 
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, ChatRoutes.login_screen);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, ChatRoutes.register_screen);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+
+            RoundedButton(color: Colors.lightBlueAccent, label: "Log in",
+                onTap: () {
+                  //Go to login screen.
+                  Navigator.pushNamed(context, ChatRoutes.login_screen);
+                },),
+
+            RoundedButton(color: Colors.blueAccent, label: "Register",
+                onTap:
+                    () {
+                  //Go to login screen.
+                  Navigator.pushNamed(context, ChatRoutes.register_screen);
+                },),
           ],
         ),
       ),
     );
   }
 }
+
+
