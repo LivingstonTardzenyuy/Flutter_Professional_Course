@@ -16,7 +16,7 @@ class ChatRoutes {
 
   };
 
-  static const String register_screen = "login screen";
+  static const String register_screen = "registration screen";
   static const String welcome_screen = "Welcome Screen";
   static const String chat_screen = "Chat Screen";
   static const String login_screen = "login screen";
