@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oop/routes.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -6,6 +7,17 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: vsync,
+      duration: Duration(seconds: 1),
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,19 +29,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-              children: <Widget>[
-                // Container(
-                //   child: Image.asset('images/logo.png'),
-                //   height: 60.0,
-                // ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: "logo",
+                  child: Container(
+                    child: Image.asset('images/logo.png'),
+                    height: 60.0,
                   ),
                 ),
+                Text("Chat App", style: TextStyle(color: Colors.black, fontSize: 46, fontWeight: FontWeight.w800),)
               ],
+            ),
+            Text(
+              'Flash Chat',
+              style: TextStyle(
+                fontSize: 45.0,
+                fontWeight: FontWeight.w900,
+              ),
             ),
             SizedBox(
               height: 48.0,
@@ -43,6 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to login screen.
+                    Navigator.pushNamed(context, ChatRoutes.login_screen);
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -61,6 +79,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     //Go to registration screen.
+                    Navigator.pushNamed(context, ChatRoutes.register_screen);
                   },
                   minWidth: 200.0,
                   height: 42.0,
