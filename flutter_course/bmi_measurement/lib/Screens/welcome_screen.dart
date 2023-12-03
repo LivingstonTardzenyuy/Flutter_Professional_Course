@@ -6,17 +6,24 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  AnimationController controller;
-
+class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
+  late AnimationController controller;
+  late Animation animation;
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      vsync: vsync,
-      duration: Duration(seconds: 1),
-
+      vsync: this,
+      duration: Duration(seconds: 4),
     );
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {
+        print(animation.value);
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -35,19 +42,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   tag: "logo",
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: animation.value * 100,
                   ),
                 ),
                 Text("Chat App", style: TextStyle(color: Colors.black, fontSize: 46, fontWeight: FontWeight.w800),)
               ],
             ),
-            Text(
-              'Flash Chat',
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
+
             SizedBox(
               height: 48.0,
             ),
