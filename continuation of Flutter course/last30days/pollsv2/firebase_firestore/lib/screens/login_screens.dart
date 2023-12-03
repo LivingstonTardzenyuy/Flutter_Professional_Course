@@ -52,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                                     (route) => false);
                               }
                         } catch (e){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Incorrect input"), backgroundColor: Colors.red,));
                           print("login error: $e");
                         }
 
@@ -78,7 +79,7 @@ class LoginScreen extends StatelessWidget {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label, labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(),
       ),
     );

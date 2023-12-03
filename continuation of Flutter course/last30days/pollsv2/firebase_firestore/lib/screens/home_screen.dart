@@ -4,6 +4,7 @@ import 'package:firebase_firestore/screens/models/notes.dart';
 import 'package:firebase_firestore/screens/notes/add_note.dart';
 import 'package:firebase_firestore/screens/notes/edit_notes.dart';
 import 'package:firebase_firestore/screens/register_screen.dart';
+import 'package:firebase_firestore/screens/upload_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +21,9 @@ class HomeScreen extends StatelessWidget {
     late FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal,
         title: Text("Home"),
         centerTitle: true,
-        backgroundColor: Colors.pink,
         actions: [
           Consumer<AuthLoginProviderGoogle>(
             builder: (BuildContext context, logOut, Widget? child) {
@@ -37,6 +38,12 @@ class HomeScreen extends StatelessWidget {
                 child: Icon(Icons.logout),
               );
             },
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => UploadImageScreen()));
+            },
+            child: Text("Images "),
           ),
         ],
       ),
@@ -58,15 +65,19 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index){
                     NoteModel note = NoteModel.fromJson(snapshot.data.docs[index]);       //converting json to object
                     return Card(
-                      color: Colors.teal,
+                      color: Colors.blueAccent,
                       elevation: 5,
                       margin: const EdgeInsets.all(10),
                       child: ListTile(
                         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         title: Text(note.title, style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 10
-                        ),),
-                        subtitle: Text(note.description, overflow: TextOverflow.ellipsis, maxLines: 10,),
+                          fontWeight: FontWeight.bold, fontSize: 15
+                        ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(note.description, overflow: TextOverflow.ellipsis, maxLines: 10,),
+                        ),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNoteScreen(note: note,)));
                         },

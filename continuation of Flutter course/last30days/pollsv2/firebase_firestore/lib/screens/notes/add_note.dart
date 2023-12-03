@@ -23,9 +23,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.teal,
         elevation: 0,
       ),
 
@@ -100,7 +99,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(),
-        labelText: label,
+        labelText: label,labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(),
       ),
     );

@@ -34,9 +34,8 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   // TextEditingController
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.teal,
         elevation: 0,
         actions: [
           Consumer<FireStoreService>(
@@ -120,7 +119,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                         Navigator.pop(context);
                       },
 
-                      child: Center(child: Text("Update Note",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)),
+                      child: Center(child: Text("Update Note",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
 
                     );  
                   },
@@ -149,7 +148,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
 
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(),
-        labelText: label,
+        labelText: label, labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(),
       ),
     );

@@ -28,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           title: Text("Register"),
           centerTitle: true,
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Colors.teal,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Already have an account ?.", style: TextStyle(fontSize: 15),),
+                      Text("Already have an account ?.", style: TextStyle(fontSize: 15, color: Colors.black),),
                       TextButton(
                           onPressed: () {
                             Navigator.pushNamed(context, RoutePages.loginPage);
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label, labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(),
       ),
 
