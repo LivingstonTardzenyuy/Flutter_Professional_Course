@@ -2,6 +2,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chats/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'Provider/auth_provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async{
@@ -17,14 +19,19 @@ Future<void> main() async{
 class FlashChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black54),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProviderD()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData.dark().copyWith(
+          textTheme: TextTheme(
+            bodyText1: TextStyle(color: Colors.black54),
+          ),
         ),
+        initialRoute: ChatRoutes.welcome_screen,
+        routes: ChatRoutes.allRoutes,
       ),
-      initialRoute: ChatRoutes.welcome_screen,
-      routes: ChatRoutes.allRoutes,
     );
   }
 }
