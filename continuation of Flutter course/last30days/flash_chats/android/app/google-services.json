@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449785277084",
+    "project_id": "mychat-73260",
+    "storage_bucket": "mychat-73260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449785277084:android:62f6df006d65c458df1b59",
+        "android_client_info": {
+          "package_name": "com.example.flash_chats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQHRkyd9VwjkSZWo4zBhdUC4SV_6tiU8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
