@@ -1,9 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:oop/firebase_options.dart';
 import 'package:oop/routes.dart';
 
 import 'Screens/welcome_screen.dart';
 
-void main() => runApp(FlashChat());
+Future<void> main() async{
+  runApp(FlashChat());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+}
 
 class FlashChat extends StatelessWidget {
   @override
