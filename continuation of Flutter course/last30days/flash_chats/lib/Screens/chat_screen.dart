@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constant.dart';
@@ -9,6 +10,31 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   @override
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUser();
+  }
+
+  Future<User?> getCurrentUser() async {
+    try{
+      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      final user = firebaseAuth.currentUser!;
+      if (user != null){
+        final userEmail = user.email;
+        print("Email is $userEmail");
+        return user;
+      } else {
+        print("NO user is log in");
+        return null;
+      }
+    } catch(e){
+      print(e);
+    }
+
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,6 +76,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       style: kSendButtonTextStyle,
                     ),
                   ),
+
+                  // Text(userEmail),
                 ],
               ),
             ),

@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chats/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   late String _email;
   late String _password;
+  late String _confirmPassword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +57,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: kInputDecoration.copyWith(hintText: "Enter your Email"),
                     ),
                     SizedBox(
-                      height: 8.0,
+                      height: 20.0,
                     ),
                     TextField(
                         obscureText: true,
@@ -64,13 +69,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         decoration: kInputDecoration.copyWith(hintText: "Enter your password ")
 
                     ),
+
+                    SizedBox(height: 20,),
+                    TextField(
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          _confirmPassword = value;
+                          print(_confirmPassword);
+                        },
+                        decoration: kInputDecoration.copyWith(hintText: "Enter your password ")
+
+                    ),
                     SizedBox(
                       height: 24.0,
                     ),
 
                     RoundedButton(color: Colors.blueAccent, label: "Register",
-                        onTap: () {
-                          signup.register(email: _email, password: _password);
+                        onTap: () async {
+                          if(_email == "" || _password == ""){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("All fields are required"), backgroundColor: Colors.red,));
+                          } else if (_password != _confirmPassword){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Both passwords must be the same"), backgroundColor: Colors.red,));
+                          } else {
+                              User? result = await signup.register(email: _email, password: _password);
+                              if (result != null){
+                                Navigator.pushNamed(context, ChatRoutes.chat_screen);
+                            }
+                          }
                         })
                   ],
                 ),
