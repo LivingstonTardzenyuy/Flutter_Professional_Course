@@ -34,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
   }
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
+                firebaseAuth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
