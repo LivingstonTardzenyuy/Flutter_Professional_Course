@@ -78,11 +78,18 @@ class _ChatScreenState extends State<ChatScreen> {
                             final messageText = message['text'];
                             final senderText = message['sender'];
 
-
+                            final messageWidget = Text('$messageText from $senderText', style: TextStyle(color: Colors.black),);
+                            messageWidgets.add(messageWidget);
 
                           }
-
-                        };
+                          return Column(
+                            children: messageWidgets,
+                          );
+                        } else if(snapshot.hasError){
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return CircularProgressIndicator();
+                        }
                       }),
                   Container(
                     decoration: kMessageContainerDecoration,
