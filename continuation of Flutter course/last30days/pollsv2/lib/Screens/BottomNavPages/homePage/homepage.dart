@@ -2,161 +2,122 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:pollsv2/Utils/messages.dart';
 import 'package:provider/provider.dart';
 
-import '../../../Provider/db_provider.dart';
 import '../../../Provider/fetch_polls_provider.dart';
 import '../../../Styles/colors.dart';
-import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _isFetched = false;
-
+  bool _isFetched = false;         // to prevent overfetching
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
         body: Consumer<FetchPollsProvider>(
-          builder: (BuildContext context, polls, child) {
-            if (_isFetched == false) {
+          builder: (BuildContext context, FetchPollsProvider polls, Widget? child) {
+            if (_isFetched == false){                                         // to aviod over fetching.
               polls.fetchAllPolls();
-              Future.delayed(const Duration(microseconds: 1), () {
+              Future.delayed(Duration(microseconds: 1), (){
                 _isFetched = true;
               });
             }
-            return polls.isLoading == true
-                ? const Center(
-              child: CircularProgressIndicator(),
-            )
-                : polls.pollsList.isEmpty
-                ? const Center(child: Text('No polls found'))
-                : CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        ...List.generate(polls.pollsList.length, (index) {
-                          final pollData = polls.pollsList[index];
-                          Map author = pollData["author"];
-                          Map poll = pollData["poll"];
-                          Timestamp date = pollData['dateCreated'];
-                          List voters = poll["voteers"];
-                          String formattedDate =
-                          DateFormat('EEE,yyyy-MM-dd').format(date.toDate());
+            return SafeArea(
+              child: polls.isLoading == true ?  CircularProgressIndicator() :
+              polls.pollsList.isEmpty ? const Center(child: Text("No poll at the moment"),) :
+              CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          ...List.generate(polls.pollsList.length, (index) {
+                            final data = polls.pollsList[index];         //getting indidual items from db
+                            log(data.data().toString());
+                            Map author = data["author"];
+                            Map poll = data["poll"];
+                            Timestamp date = data["dateCreated"];
 
-                          List<dynamic> options = poll['options'];
+                            // List<dynamic> options = poll["options"];
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
 
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.grey),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: NetworkImage(author['profileImage']),
-                                    backgroundColor: Colors.blue,
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(author["profileImage"]),
+                                    ),
+                                    title: Text(author["name"]),
+                                    trailing: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.share),
+                                    ),
                                   ),
-                                  title: Text(
-                                    author["name"],
-                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                                  ),
-                                  subtitle: Text(formattedDate),
-                                  trailing: IconButton(
-                                    onPressed: () {
-                                      // Add your action here
-                                    },
-                                    icon: Icon(Icons.share),
-                                  ),
-                                ),
-                                Text(poll["questions"]),
-                                const SizedBox(height: 8,),
-                                ...List.generate(options.length, (index) {
-                                  final dataOptions = options[index];
 
-                                  return Consumer<ProviderPro>(
-                                    builder: (BuildContext context, pollVote, Widget? child) {
-                                      WidgetsBinding.instance!.addPostFrameCallback((_) {
-                                        if (pollVote.message.isNotEmpty) {
-                                          if (pollVote.message.contains("Vote recorded")) {
-                                            success(context, message: pollVote.message);
-                                            pollVote.clear();
-                                          } else {
-                                            error(context, message: pollVote.message);
-                                            pollVote.clear();
-                                          }
-                                        }
-                                      });
-                                      return GestureDetector(
-                                        onTap: () {
-                                          log(dataOptions.toString());
-                                          if (voters.isEmpty) {
-                                            log("no vote for now");
-                                            pollVote.votePoll(
-                                              pollId: pollData.id,
-                                              pollData: pollData,
-                                              previousTotalVotes: poll["total_votes"],
-                                              seletedOptions: dataOptions["answer"],
-                                            );
-                                            polls.fetchAllPolls();
-                                          }
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.only(bottom: 5, right: 30),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    LinearProgressIndicator(
-                                                      minHeight: 30,
-                                                      backgroundColor: AppColors.white,
-                                                      value: dataOptions['percent'] / 100,
-                                                    ),
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                      height: 30,
-                                                      child: Text(dataOptions['answer']),
-                                                    ),
-                                                  ],
+                                  Text(poll["questions"]),
+                                  const SizedBox(height: 8.0,),
+                                  const Text('Total Votes: 8'),
+
+                                  ...List.generate(2, (index) {
+                                    // final dataOptions = options[index];
+                                    return Container(
+                                      margin: const EdgeInsets.only(bottom: 5, right: 20),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                LinearProgressIndicator(
+                                                  minHeight: 30.0,
+                                                  backgroundColor: AppColors.white,
+                                                  value: 50 / 100,
                                                 ),
-                                              ),
-                                              Text("${dataOptions['percent']}%")
-                                            ],
+                                                Container(
+                                                  alignment: Alignment.centerLeft,
+                                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                  height: 30,
+                                                  child: Text("answer"),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }),
-                                Text("Total votes: ${poll['total_votes'].toString()}"),
-                              ],
-                            ),
-                          );
-                        })
-                      ],
+
+                                          SizedBox(width: 20,),
+                                          Text('5%'),
+                                        ],
+                                      ),
+                                    );
+                                  })
+
+
+                                ],
+                              ),
+                            );
+                          })
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             );
           },
-        ),
-      ),
+
+        )
     );
   }
 }

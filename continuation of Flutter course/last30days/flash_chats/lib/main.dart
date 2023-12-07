@@ -4,6 +4,7 @@ import 'package:flash_chats/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Provider/auth_provider.dart';
+import 'Provider/chat_section.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async{
@@ -22,6 +23,7 @@ class FlashChat extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProviderD()),
+        ChangeNotifierProvider(create: (context) => ChatSection()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(

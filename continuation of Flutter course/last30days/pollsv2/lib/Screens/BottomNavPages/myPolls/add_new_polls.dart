@@ -55,7 +55,7 @@ class _AddPollPageState extends State<AddPollPage> {
 
                           Consumer<ProviderPro>(
                             builder: (BuildContext context, data, child){
-                              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
                                 if (data.message != ""){
                                   if(data.message.contains('Poll Created')){
                                     success(context, message: data.message);

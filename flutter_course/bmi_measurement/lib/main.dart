@@ -1,3 +1,4 @@
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:oop/firebase_options.dart';
@@ -13,6 +14,8 @@ Future<void> main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 }
+
+// void main() => runApp(FlashChat());
 
 class FlashChat extends StatelessWidget {
   @override

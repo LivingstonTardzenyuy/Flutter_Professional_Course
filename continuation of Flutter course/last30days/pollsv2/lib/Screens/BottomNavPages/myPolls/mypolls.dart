@@ -92,8 +92,8 @@ class _MyPolesState extends State<MyPoles> {
                               log(pollData.data().toString());      //diplaying data in console.
                               Map author = pollData["author"];
                               Map poll = pollData["poll"];
-                              Timestamp date = pollData['dateCreated'];
-                              String formattedDate = DateFormat('EEE,yyyy-MM-dd').format(date.toDate());
+                              // Timestamp date = pollData['dateCreated'];
+                              // String formattedDate = DateFormat('EEE,yyyy-MM-dd').format(date.toDate());
 
                               List<dynamic>  options = poll['options'];
 
@@ -113,7 +113,7 @@ class _MyPolesState extends State<MyPoles> {
                                         backgroundImage: NetworkImage(author['profileImage']),
                                         backgroundColor: Colors.blue,),
                                       title: Text(author["name"], style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
-                                      subtitle: Text(formattedDate),
+                                      // subtitle: Text(formattedDate),
                                       trailing: Consumer<ProviderPro>(
                                         builder: (BuildContext context, deletePoll, child) {
                                           WidgetsBinding.instance.addPostFrameCallback((_) {
