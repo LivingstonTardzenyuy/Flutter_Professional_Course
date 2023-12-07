@@ -24,14 +24,19 @@ class ChatSection extends ChangeNotifier {
     }
   }
 
-  Future<void> getChat() async {
-    // Use snapshots() to get real-time updates
-    pollCollection.snapshots().listen((QuerySnapshot messages) {        // allowed real time messaging.
-      for (var message in messages.docs) {
-        print(message.data());
-      }
-    });
+  // Future<void> getChat() async {
+  //   // Use snapshots() to get real-time updates
+  //   pollCollection.snapshots().listen((QuerySnapshot messages) {        // allowed real time messaging.
+  //     for (var message in messages.docs) {
+  //       print(message.data());
+  //     }
+  //   });
+  // }
+  Stream<QuerySnapshot> getChatStream() {
+    // Return the stream directly
+    return pollCollection.snapshots();
   }
+
 
 
   Future<String?> getCurrentUserEmail() async {

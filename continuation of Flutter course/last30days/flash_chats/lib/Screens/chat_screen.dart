@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
               // FirebaseAuth.instance.signOut();
               // Navigator.pop(context);
 
-              Provider.of<ChatSection>(context, listen: false).getChat();
+              Provider.of<ChatSection>(context, listen: false).getChatStream();
             },
           ),
         ],
@@ -59,56 +60,75 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
-        child: Consumer<ChatSection>(
-          builder: (BuildContext context, ChatSection addChat, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  decoration: kMessageContainerDecoration,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          onChanged: (value) {
-                            //Do something with the user input.
-                            messageText = value;
-                          },
-                          decoration: kMessageTextFieldDecoration,
-                        ),
-                      ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Consumer<ChatSection>(
+            builder: (BuildContext context, ChatSection addChat, child) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  StreamBuilder<QuerySnapshot>(
+                      stream: addChat.getChatStream(),
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          final messages = snapshot.data!.docs;      //accessing the data inside our async snapshot.
+                          List<Text> messageWidgets = [];
+                          for (var message in messages){
+                            final messageText = message['text'];
+                            final senderText = message['sender'];
 
-                      GestureDetector(
-                        onTap: () async {
-                          try {
-                            String? sender = await addChat.getCurrentUserEmail();
-                            if (sender != null) {
-                              await addChat.AddChat(
-                                sender: sender,
-                                text: messageText,
-                              );
-                            } else {
-                              // Handle the case when sender is null
-                              print("Sender is null");
-                            }
-                          } catch (e) {
-                            // Handle the exception if needed
-                            print("Failed to add chat: $e");
+
+
                           }
-                        },
-                        child: Text(
-                          'Send',
-                          style: kSendButtonTextStyle,
+
+                        };
+                      }),
+                  Container(
+                    decoration: kMessageContainerDecoration,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) {
+                              //Do something with the user input.
+                              messageText = value;
+                            },
+                            decoration: kMessageTextFieldDecoration,
+                          ),
                         ),
-                      ),
-                    ],
+
+                        GestureDetector(
+                          onTap: () async {
+                            try {
+                              String? sender = await addChat.getCurrentUserEmail();
+                              if (sender != null) {
+                                await addChat.AddChat(
+                                  sender: sender,
+                                  text: messageText,
+                                );
+                              } else {
+                                // Handle the case when sender is null
+                                print("Sender is null");
+                              }
+                            } catch (e) {
+                              // Handle the exception if needed
+                              print("Failed to add chat: $e");
+                            }
+                          },
+                          child: Text(
+                            'Send',
+                            style: kSendButtonTextStyle,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
