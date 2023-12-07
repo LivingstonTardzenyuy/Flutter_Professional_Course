@@ -26,7 +26,7 @@ class ChatSection extends ChangeNotifier {
 
   Future<void> getChat() async {
     // Use snapshots() to get real-time updates
-    pollCollection.snapshots().listen((QuerySnapshot messages) {
+    pollCollection.snapshots().listen((QuerySnapshot messages) {        // allowed real time messaging.
       for (var message in messages.docs) {
         print(message.data());
       }
