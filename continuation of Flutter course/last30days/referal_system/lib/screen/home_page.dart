@@ -48,6 +48,8 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 5,),
                   Card(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(20),
@@ -61,7 +63,31 @@ class HomePage extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ),
+
+                  SizedBox(height: 5,),
+                  Divider(thickness: 3,),
+                  SizedBox(height: 5,),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Referals"),
+                        Text("22"),
+                      ],
+                    ),
+                  ),
+
+                  ...List.generate(4, (index) {
+                    return Container(
+                      height: 50.0,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: ListTile(
+                        leading: CircleAvatar(),
+                        title: Text("kongnyuylivingstone@gmail.com"),
+                      ),
+                    );
+                  })
 
             ]
 
