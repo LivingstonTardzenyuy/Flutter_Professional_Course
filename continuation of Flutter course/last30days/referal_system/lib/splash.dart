@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:referal_app/authentication/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       if (isUser) {
       } else {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
    }
     });
   }
