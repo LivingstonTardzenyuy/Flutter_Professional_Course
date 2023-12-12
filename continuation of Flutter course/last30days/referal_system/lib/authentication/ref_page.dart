@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text_form_field/flutter_text_form_field.dart';
 import 'package:referal_app/authentication/login_page.dart';
 
+import '../screen/home_page.dart';
+
 class RefPage extends StatefulWidget {
   @override
   _RefPageState createState() => _RefPageState();
@@ -53,27 +55,9 @@ class _RefPageState extends State<RefPage> {
                         children: [
                           CustomTextField(
                             _emailController,
-                            hint: 'Email',
+                            hint: 'Enter Ref code',
                             password: false,
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextField(
-                            _passwordController,
-                            hint: 'Password',
-                            obscure: true,
-                          ),
-
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextField(
-                            _confirmPasswordController,
-                            hint: 'confirm Password',
-                            obscure: true,
-                          ),
-
                           const SizedBox(
                             height: 2,
                           ),
@@ -93,28 +77,29 @@ class _RefPageState extends State<RefPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
-                            "SignUp",
+                            "Continue",
                             style: TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Have have an Account ?",
-                            style: TextStyle(fontSize: 17),
-                          ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
 
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("No Referal ?",  style: TextStyle(fontSize: 20, color: Colors.black)),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                },
+                                child: Text("Continue", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),))
 
-                            },
-                            child: Text("No Referal ?. continue",  style: TextStyle(fontSize: 20)),)
-                        ],
-                      ),
+                          ],
+                        ),),
                     ],
                   )),
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:referal_app/splash.dart';
+import 'package:referal_app/screen/splash.dart';
 
 void main() {
   runApp(ReferalApp());

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text_form_field/flutter_text_form_field.dart';
 import 'package:referal_app/authentication/login_page.dart';
+import 'package:referal_app/authentication/ref_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -83,6 +84,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         onTap: () {
                           print(_emailController.text);
                           print(_passwordController.text);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => RefPage()));
                           //Validate User Inputs
                         },
                         child: Container(
@@ -103,7 +105,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Have have an Account ?",
+                            "Have an Account ?",
                             style: TextStyle(fontSize: 17),
                           ),
 
