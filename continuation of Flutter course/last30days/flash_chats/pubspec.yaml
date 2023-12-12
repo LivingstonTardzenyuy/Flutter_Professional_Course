@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.13.4
   provider: ^6.1.1
   modal_progress_hud_nsn: ^0.4.0
+  flutter_windowmanager: ^0.2.0
 
 
 dev_dependencies:

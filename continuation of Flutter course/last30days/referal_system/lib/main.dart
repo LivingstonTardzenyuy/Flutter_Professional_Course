@@ -11,7 +11,7 @@ Future<void> main() async {
 }
 
 class ReferalApp extends StatelessWidget {
-  const ReferalApp({super.key});
+  const ReferalApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
