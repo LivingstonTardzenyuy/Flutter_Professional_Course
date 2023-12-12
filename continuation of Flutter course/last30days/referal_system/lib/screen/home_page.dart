@@ -8,12 +8,67 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page",),
+        backgroundColor: Colors.blueAccent,
         actions: [
           IconButton(
               onPressed: () {},
               icon: Icon(Icons.exit_to_app))
         ],
+      ),
 
+      body: Container(
+        padding: const EdgeInsets.all(12),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Card(
+                    child: ListTile(
+                      title: const Text("Earning"),
+                      subtitle: Text("CMR, 39939 fcfa"),
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  Divider(thickness: 3,),
+                  SizedBox(height: 5,),
+                  Card(
+                    child: ListTile(
+                      title: const Text("Referal Code"),
+                      subtitle: Text("3934309f"),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.copy),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 5,),
+                  Divider(thickness: 3,),
+                  SizedBox(height: 5,),
+                  Card(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: const Text("Invite your friends to the app and earn 10,000 fcfa when they register using your Rerefal code"),
+                        ),
+                        Container(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text("Share link"),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+
+            ]
+
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
