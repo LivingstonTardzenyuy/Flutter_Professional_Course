@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBGAzME81kYoH6T215wvoFqhC7FsO-RdiU</string>
+	<string>AIzaSyA9-AjByIqw3d5wS4WLCICVJsx_m2G_KDg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>219516150336</string>
+	<string>705998604868</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.refApp</string>
 	<key>PROJECT_ID</key>
-	<string>referal-1</string>
+	<string>referal-app-d802f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>referal-1.appspot.com</string>
+	<string>referal-app-d802f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:219516150336:ios:d3bc28fc83fceec76635a5</string>
+	<string>1:705998604868:ios:1e081878e20d42b5040a11</string>
 </dict>
 </plist>

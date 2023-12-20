@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyATUvojx3Kde_84bKiDC7RD_dJi87WCKow',
-    appId: '1:219516150336:web:483e585f59e22eb56635a5',
-    messagingSenderId: '219516150336',
-    projectId: 'referal-1',
-    authDomain: 'referal-1.firebaseapp.com',
-    storageBucket: 'referal-1.appspot.com',
-    measurementId: 'G-62ZDR6YSGC',
+    apiKey: 'AIzaSyAw-YnleHGXgHYVdck8EmZdy-RBYjMMm2w',
+    appId: '1:705998604868:web:e6e97856c202ae08040a11',
+    messagingSenderId: '705998604868',
+    projectId: 'referal-app-d802f',
+    authDomain: 'referal-app-d802f.firebaseapp.com',
+    storageBucket: 'referal-app-d802f.appspot.com',
+    measurementId: 'G-JWBMB69YPE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyATxnOvkIilF7GNvUUQsw-dNw5cZviwnLg',
-    appId: '1:219516150336:android:1e30e52e979a39146635a5',
-    messagingSenderId: '219516150336',
-    projectId: 'referal-1',
-    storageBucket: 'referal-1.appspot.com',
+    apiKey: 'AIzaSyDTD3zchTgkzC8YDkWlQIYULgUrR4F8avI',
+    appId: '1:705998604868:android:a70332b896f7dacd040a11',
+    messagingSenderId: '705998604868',
+    projectId: 'referal-app-d802f',
+    storageBucket: 'referal-app-d802f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBGAzME81kYoH6T215wvoFqhC7FsO-RdiU',
-    appId: '1:219516150336:ios:d3bc28fc83fceec76635a5',
-    messagingSenderId: '219516150336',
-    projectId: 'referal-1',
-    storageBucket: 'referal-1.appspot.com',
+    apiKey: 'AIzaSyA9-AjByIqw3d5wS4WLCICVJsx_m2G_KDg',
+    appId: '1:705998604868:ios:1e081878e20d42b5040a11',
+    messagingSenderId: '705998604868',
+    projectId: 'referal-app-d802f',
+    storageBucket: 'referal-app-d802f.appspot.com',
     iosBundleId: 'com.example.refApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBGAzME81kYoH6T215wvoFqhC7FsO-RdiU',
-    appId: '1:219516150336:ios:dae2fc4bb959f55a6635a5',
-    messagingSenderId: '219516150336',
-    projectId: 'referal-1',
-    storageBucket: 'referal-1.appspot.com',
+    apiKey: 'AIzaSyA9-AjByIqw3d5wS4WLCICVJsx_m2G_KDg',
+    appId: '1:705998604868:ios:d0ce525a66eeb3de040a11',
+    messagingSenderId: '705998604868',
+    projectId: 'referal-app-d802f',
+    storageBucket: 'referal-app-d802f.appspot.com',
     iosBundleId: 'com.example.refApp.RunnerTests',
   );
 }

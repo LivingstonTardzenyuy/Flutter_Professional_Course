@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "219516150336",
-    "project_id": "referal-1",
-    "storage_bucket": "referal-1.appspot.com"
+    "project_number": "705998604868",
+    "project_id": "referal-app-d802f",
+    "storage_bucket": "referal-app-d802f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:219516150336:android:1e30e52e979a39146635a5",
+        "mobilesdk_app_id": "1:705998604868:android:a70332b896f7dacd040a11",
         "android_client_info": {
           "package_name": "com.example.ref_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyATxnOvkIilF7GNvUUQsw-dNw5cZviwnLg"
+          "current_key": "AIzaSyDTD3zchTgkzC8YDkWlQIYULgUrR4F8avI"
         }
       ],
       "services": {

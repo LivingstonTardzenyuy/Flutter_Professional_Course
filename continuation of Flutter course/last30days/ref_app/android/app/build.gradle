@@ -41,6 +41,8 @@ android {
     }
 
     defaultConfig {
+        minSdkVersion 21
+
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.ref_app"
         // You can update the following values to match your application needs.
@@ -49,6 +51,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -57,6 +61,18 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+
+        android {
+            buildTypes {
+                debug {
+                    multiDexEnabled true
+                }
+                release {
+                    multiDexEnabled true
+                }
+            }
+        }
+
     }
 }
 
@@ -64,4 +80,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+
+}
