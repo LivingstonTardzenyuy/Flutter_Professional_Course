@@ -7,17 +7,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Page",),
+        title: Text("Home Page", style: TextStyle(color: Colors.white),),
+        centerTitle: true,
         backgroundColor: Colors.blueAccent,
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(Icons.exit_to_app))
+              icon: Icon(Icons.exit_to_app, color: Colors.white,))
         ],
       ),
 
       body: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(20),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
