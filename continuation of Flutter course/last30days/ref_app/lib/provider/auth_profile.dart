@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../enums/state.dart';
 
-class AuthProvider extends ChangeNotifier{
+class AuthProviderDb extends ChangeNotifier{
   ViewState state = ViewState.Idle;
   String message = "";
 
@@ -56,7 +56,7 @@ class AuthProvider extends ChangeNotifier{
     }
   }
 
-  void createUserProfile() {
+  void createUserProfile() async {
     final body = {
       "refCode": firebaseAuth.currentUser!.uid,
       'email': firebaseAuth.currentUser!.email,
@@ -64,6 +64,8 @@ class AuthProvider extends ChangeNotifier{
       'referals': <String>[],
       'refEarning': 0,
     };
+
+    await Future.delayed(Duration(seconds: 2));
 
     profileRef.add(body);
   }
