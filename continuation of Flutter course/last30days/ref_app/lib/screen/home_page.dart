@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ref_app/Utils/message.dart';
 import 'package:ref_app/authentication/login_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../provider/auth_profile.dart';
 
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Card(
                           child: ListTile(
-                            title: const Text("Earning"),
+                            title: const Text("Earning", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),),
                             subtitle: Text("CMR, $earning fcfa", style: TextStyle(fontSize: 18),),
                           ),
                         ),
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(height: 5,),
                         Card(
                           child: ListTile(
-                            title: const Text("Referal Code"),
+                            title: const Text("Referal Code", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),),
                             subtitle: Text("$refCode"),
                             trailing: IconButton(
                               onPressed: () {
@@ -100,6 +101,7 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     String shareLink = "Hey! use this app and earn 1000 CFA ($refCode)";
 
+                                    Share.share(shareLink);
                                   },
                                   child: Text("Share link"),
                                 ),
@@ -116,18 +118,22 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Referals"),
-                              Text("22"),
+                              Text("${referalList.length.toString()}"),
                             ],
                           ),
                         ),
 
-                        ...List.generate(4, (index) {
+                        if (referalList.isEmpty) const Text("No Referals"),
+                        ...List.generate(referalList.length, (index) {
+                          final data = referalList[index];
                           return Container(
                             height: 50.0,
                             margin: const EdgeInsets.only(bottom: 10),
                             child: ListTile(
-                              leading: CircleAvatar(),
-                              title: Text("kongnyuylivingstone@gmail.com"),
+                              leading: CircleAvatar(
+                                child: Text("$index + 1"),
+                              ),
+                              title: Text(data),
                             ),
                           );
                         })
