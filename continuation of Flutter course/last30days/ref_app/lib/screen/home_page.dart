@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:ref_app/Utils/message.dart';
 import 'package:ref_app/authentication/login_page.dart';
 
 import '../provider/auth_profile.dart';
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         Card(
                           child: ListTile(
                             title: const Text("Earning"),
-                            subtitle: Text("CMR, $earning fcfa"),
+                            subtitle: Text("CMR, $earning fcfa", style: TextStyle(fontSize: 18),),
                           ),
                         ),
                         SizedBox(height: 5,),
@@ -69,9 +71,13 @@ class _HomePageState extends State<HomePage> {
                         Card(
                           child: ListTile(
                             title: const Text("Referal Code"),
-                            subtitle: Text("3934309f"),
+                            subtitle: Text("$refCode"),
                             trailing: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ClipboardData data = ClipboardData(text: refCode);
+                                Clipboard.setData(data);
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(refCode), backgroundColor: Colors.purple,));
+                              },
                               icon: Icon(Icons.copy),
                             ),
                           ),
@@ -91,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Container(
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    String shareLink = "Hey! use this app and earn 1000 CFA ($refCode)";
+
+                                  },
                                   child: Text("Share link"),
                                 ),
                               )

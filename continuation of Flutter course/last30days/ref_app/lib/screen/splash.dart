@@ -23,9 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigate() {
     Future.delayed(const Duration(seconds: 3), () {
       if (auth.currentUser != null) {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (route) => false)
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
       } else {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false)
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false);
    }
     });
   }
