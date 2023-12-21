@@ -56,6 +56,10 @@ class AuthProviderDb extends ChangeNotifier{
     }
   }
 
+  void logout() async {
+    await firebaseAuth.signOut();
+    notifyListeners();
+  }
   void createUserProfile() async {
     final body = {
       "refCode": firebaseAuth.currentUser!.uid,
@@ -69,4 +73,6 @@ class AuthProviderDb extends ChangeNotifier{
 
     profileRef.add(body);
   }
+
+
 }

@@ -32,7 +32,7 @@ class RefProvider extends ChangeNotifier{
         // update the ref earning
         final body = {
           "referals" : referalls,
-          "refEarning": data.get("refEarning") + 500,
+          "refEarning": data.get("refEarning") + 1000,
         };
 
         await profileR.doc(data.id).update(body);

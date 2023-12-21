@@ -5,6 +5,7 @@ import 'package:ref_app/authentication/registration_page.dart';
 import 'package:ref_app/enums/state.dart';
 import 'package:ref_app/screen/home_page.dart';
 
+import '../Utils/message.dart';
 import '../provider/auth_profile.dart';
 
 class Login extends StatefulWidget {
@@ -88,11 +89,27 @@ class _LoginState extends State<Login> {
                             ],
                           ),
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               print(_emailController.text);
                               print(_passwordController.text);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                               //Validate User Inputs
+
+                                  if(_emailController.text.isEmpty || _passwordController.text.isEmpty){
+                                    // showMessage(context, "All Fields are required");
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text("All Fields are required"),
+                                      backgroundColor: Colors.red,));
+
+                                  } else{
+                                    await authSignin.loginUser(_emailController.text.trim(), _passwordController.text.trim());
+                                    if(authSignin.state == ViewState.Success){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                    } else{
+                                      showMessage(context, authSignin.message);
+                                    }
+                                  }
+
+
                             },
                             child: Container(
                               padding: const EdgeInsets.all(15.0),
@@ -112,16 +129,16 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Don't have an Account ?",
+                                "Don't have an Account?  ",
                                 style: TextStyle(fontSize: 17),
                               ),
 
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+                                  },
+                                  child: Text("Register", style: TextStyle(color: Colors.purple, fontSize: 17),))
 
-                                },
-                                child: Text("Register",  style: TextStyle(fontSize: 20)),)
                             ],
                           ),
                         ],
