@@ -40,6 +40,16 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder<QuerySnapshot>(
         future: profileRf.where("refCode", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+          if(!snapshot.hasData){
+            return const Center(child: CircularProgressIndicator(),);
+          }
+
+          final data = snapshot.data!.docs[0];
+          final earning = data.get("refEarning");
+          List referalList = data.get("referals");
+          final refCode = data.get("refCode");
+
+
           return Container(
             padding: const EdgeInsets.all(20),
             child: CustomScrollView(
@@ -50,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                         Card(
                           child: ListTile(
                             title: const Text("Earning"),
-                            subtitle: Text("CMR, 39939 fcfa"),
+                            subtitle: Text("CMR, $earning fcfa"),
                           ),
                         ),
                         SizedBox(height: 5,),
