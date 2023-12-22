@@ -14,4 +14,16 @@ void main() {
             //Assert
             expect(value, 0);
           });
+
+  test('given the counter class the incremented value should be 1',
+      (){
+        //arrange
+        final Counter counter = Counter();
+        counter.incrementCounter();
+        //act
+        final value = counter.count;
+        //Assert
+        expect(value, 1);
+      }
+  );
 }
