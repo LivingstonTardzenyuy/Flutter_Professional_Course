@@ -10,11 +10,15 @@ void main() {
   //Setup -> test -> setup -> test -> setup -> test
   //Setupall -> test -> test -> test
 
+  late Counter counter;
+  setUp(() {
+    counter = Counter();
+  });
+
   group('Counter class - ', () {
     //arrange
     test('given a counter class when it is instantiated the value of count should be 0',
             () {
-          final Counter counter = Counter();
               //Act
           final value = counter.count;
 
@@ -24,7 +28,6 @@ void main() {
 
     test('given the counter class the incremented value should be 1',
             (){
-          final Counter counter = Counter();
               //arrange
           counter.incrementCounter();
           //act
@@ -36,7 +39,6 @@ void main() {
 
           test("given a counter class the decremented value should decrement by 1",
               (){
-                final Counter counter = Counter();
                 counter.decrementCounter();
                 final value = counter.count;
                 expect(value, -1);
