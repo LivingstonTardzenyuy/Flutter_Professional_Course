@@ -4,12 +4,18 @@ import 'package:testing/counter.dart';
 void main() {
   //given when then..
 
+  //Pretest
+  setUp(() => null);        //setUp is called before the test is done.
+  setUpAll(() => null);     //SetupAll is called before all the test
+  //Setup -> test -> setup -> test -> setup -> test
+  //Setupall -> test -> test -> test
+
   group('Counter class - ', () {
     //arrange
-    final Counter counter = Counter();
     test('given a counter class when it is instantiated the value of count should be 0',
             () {
-          //Act
+          final Counter counter = Counter();
+              //Act
           final value = counter.count;
 
           //Assert
@@ -18,7 +24,8 @@ void main() {
 
     test('given the counter class the incremented value should be 1',
             (){
-          //arrange
+          final Counter counter = Counter();
+              //arrange
           counter.incrementCounter();
           //act
           final value = counter.count;
@@ -27,10 +34,23 @@ void main() {
         }
     );
 
-    test('given counter class when it is decremented then the value reduces by 1', () {
-
+          test("given a counter class the decremented value should decrement by 1",
+              (){
+                final Counter counter = Counter();
+                counter.decrementCounter();
+                final value = counter.count;
+                expect(value, -1);
+              }
+              );
+        // );
     });
 
-  });
+  //Post test
+  tearDown(() => null);  //called after a single test
+  tearDownAll(() => null);    // called after all the test
+
+  // -> test -> tearDown ->test -> tearDown
+  // -> test -> test -> test -> tearDownAll
+
 
 }
