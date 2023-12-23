@@ -11,7 +11,7 @@ void main() {
   //Setupall -> test -> test -> test
 
   late Counter counter;
-  setUp(() {
+  setUpAll(() {
     counter = Counter();
   });
 
@@ -41,9 +41,15 @@ void main() {
               (){
                 counter.decrementCounter();
                 final value = counter.count;
-                expect(value, -1);
+                expect(value, 0);
               }
               );
+
+          test("This test will reset the value of the UI", () {
+            counter.resetCounter();
+            final value = counter.count;
+            expect(value, 0);
+          });
         // );
     });
 
